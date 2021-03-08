@@ -1,0 +1,47 @@
+<header id="header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2">
+        <div class="container-fluid">
+            <a class="navbar-brand p-0" href="{{ url_for('home') }}">
+                <img src="../../static/img/logo.png" alt="" style="height: 28px;">
+                <!-- <b class="ms-2">RB</b> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto my-2 my-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">Nosotros</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('docs') }}">Documentación</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    {% if session.logged %}
+                    <li class="nav-item me-md-2">
+                        <a class="w-100 w-md-auto btn btn-outline-light" href="{{ url_for('fileupload') }}" role="button">Generar Reportes</a>
+                    </li>
+                    <li class="nav-item me-md-2 mt-2 mt-md-0">
+                        <a class="w-100 w-md-auto btn btn-outline-light" href="{{ url_for('dashboard') }}" role="button">Dashboard</a>
+                    </li>
+                    <li class="nav-item my-2 my-md-0">
+                        <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('logout') }}" role="button">Cerrar Sesión</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item me-md-2 mt-2 mt-md-0">
+                        <a class="w-100 w-md-auto btn btn-outline-light" href="{{ url_for('signup') }}" role="button">Registrarme</a>
+                    </li>
+                    <li class="nav-item my-2 my-md-0">
+                        <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('login') }}" role="button">Iniciar Sesión</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>

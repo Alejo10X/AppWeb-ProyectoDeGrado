@@ -1,0 +1,23 @@
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+# Useful .gitignore templates: https://github.com/github/gitignore
+
+.cf
+.cache
+.vscode
+
+env
+doc
+dist
+files
+screenshots
+node_modules
+site.webmanifest
+static/img
+desktop.ini
+
+.cf/CUSTOM-2-09-29-#61#56#.ico
+__pycache__/app.cpython-38.pyc
+libs/__pycache__/firebase.cpython-38.pyc
+libs/__pycache__/validateforms.cpython-38.pyc
+
