@@ -27,7 +27,7 @@ def is_logged_in(f):
 
 
 
-# ANCHOR Home
+# ANCHOR Página de Inicio
 
 @app.route('/')
 def home():
@@ -37,7 +37,7 @@ def home():
 
 
 
-# ANCHOR User Sign Up
+# ANCHOR User Sign Up / Registro de Usuario
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -68,7 +68,7 @@ def signup():
 
 
 
-# ANCHOR User Log In
+# ANCHOR User Log In / Inicio de Sesión de Usuario
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -100,7 +100,7 @@ def login():
 
 
 
-# ANCHOR User Log Out
+# ANCHOR User Log Out / Cierre de Sesión de Usuario
 
 @app.route('/logout')
 def logout():
@@ -110,12 +110,14 @@ def logout():
 
 
 
-# ANCHOR File Upload
+# ANCHOR Carga de Archivos
 
-@app.route('/fileupload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 @is_logged_in
-def fileupload():
+def upload():
     title = 'Subir Archivo' + brand
+
+    # TODO Verificar que no hayan archivos repetidos, de lo contrario cambiar datos o sobreescribir.
 
     form = UploadFile()
 
@@ -136,15 +138,15 @@ def fileupload():
 
             if userAddFileHistory(session['userkey'], session['filedata']):
                 flash('El archivo ahora se encuentra en la base de datos', 'success')
-                return redirect(url_for('filemanager'))
+                return redirect(url_for('filedata'))
             
             else:
                 flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
-                return redirect(url_for('fileupload'))
+                return redirect(url_for('upload'))
 
         else:
             flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
-            return redirect(url_for('fileupload'))
+            return redirect(url_for('upload'))
 
 
     elif 'channelID' in request.form:
@@ -170,36 +172,40 @@ def fileupload():
 
             if userAddFileHistory(session['userkey'], session['filedata']):
                 flash('El archivo ahora se encuentra en la base de datos', 'success')
-                return redirect(url_for('filemanager'))
+                return redirect(url_for('filedata'))
             
             else:
                 flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
-                return redirect(url_for('fileupload'))
+                return redirect(url_for('upload'))
 
         else:
             flash('El número del Channel ID que escribió no existe o es incorrecto. Pruebe escribiendo otro número.', 'danger')
-            return redirect(url_for('fileupload'))
+            return redirect(url_for('upload'))
 
     return render_template('fileupload.html', title=title, form=form)
 
 
 
+# ANCHOR Características requeridas para leer los datos del archivo
 
-@app.route('/filemanager')
+@app.route('/filedata', methods=['GET', 'POST'])
 @is_logged_in
-def filemanager():
+def filedata():
     title = 'Características del Archivo' + brand
 
-    return render_template('filemanager.html', title=title)
+    if request.method == 'POST':
+        return redirect(url_for('reportdata'))
+
+    return render_template('filedata.html', title=title)
 
 
 
 
-@app.route('/reportform')
+@app.route('/reportdata')
 @is_logged_in
-def report():
+def reportdata():
     title = 'Creación del Reporte' + brand
-    return render_template('reportform.html', title=title)
+    return render_template('reportdata.html', title=title)
 
 
 

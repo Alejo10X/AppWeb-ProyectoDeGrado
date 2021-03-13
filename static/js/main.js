@@ -55,7 +55,14 @@
                 three.removeClass('btn-secondary');
                 three.addClass('btn-primary');
 
-                CKEDITOR.replace('placedescription');
+                CKEDITOR.replace('placedescription', {
+                    language: 'es',
+                    extraPlugins: 'editorplaceholder,autogrow',
+                    editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
+                    autoGrow_minHeight: 250,
+                    autoGrow_maxHeight: 400,
+                    removePlugins: 'resize'
+                });
                 break;
 
             case "Dashboard · RS Report":
