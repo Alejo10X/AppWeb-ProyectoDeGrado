@@ -4,12 +4,58 @@
 
     {% include 'includes/messages.html' %}
 
-    <h1 class="display-4">Generador de Reportes</h1>
-    <p class="lead">Esta es una aplicación web basada en Python, que te permitirá crear reportes de calidad de agua (estimados) gracias a los datos de medición del sistema, alojados en el servidor de Thinkspeak.
-    </p>
+    <h1 class="display-3 fw-bold mb-3">Generador de Reportes</h1>
+    <h2>Análisis preliminar de la calidad del agua con el sistema Roboat Stingray</h2>
+
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+
+    <p class="lead">Este sitio es una aplicación web basada en Python, que te permitirá crear reportes preliminares sobre la calidad del agua gracias a los datos de medición obtenidos del sistema <b>Roboat Stingray</b>, alojados en el servidor de <b>Thinkspeak</b>.
+    </p>
+
     <a class="btn btn-primary btn-lg" href="#" role="button">Ver Más</a>
+
+    <div class="row row-cols-1 g-4 my-3">
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+                <img src="../static/img/ph.svg" class="card-img-top" alt="..." style="max-height: 75px;">
+                <div class="card-body">
+                    <h5 class="card-title">pH</h5>
+                    <p class="card-text">Descripción breve de la variable. No tiene unidades de medición.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+                <img src="../static/img/conductivity.svg" class="card-img-top" alt="..." style="max-height: 75px;">
+                <div class="card-body">
+                    <h5 class="card-title">Conductividad Eléctrica</h5>
+                    <p class="card-text">Descripción breve de la variable. Sus unidades son los µS/cm.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+                <img src="../static/img/oxygen.svg" class="card-img-top" alt="..." style="max-height: 75px;">
+                <div class="card-body">
+                    <h5 class="card-title">Oxígeno Disuelto</h5>
+                    <p class="card-text">Descripción breve de la variable. Sus unidades son los mg/cm.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+                <img src="../static/img/temperature.svg" class="card-img-top" alt="..." style="max-height: 75px;">
+                <div class="card-body">
+                    <h5 class="card-title">Temperatura</h5>
+                    <p class="card-text">Descripción breve de la variable. Sus unidades son los °C.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 
