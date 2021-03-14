@@ -1,16 +1,12 @@
 {% extends 'layouts/complete.html' %} {% block body %}
 <main>
-    <div id="body" class="container my-5" onresize="setHeight()">
+    <div id="body" class="container my-5">
 
         <h1><b>Mis Archivos</b> - Mediciones y Reportes</h1>
-        <hr>
-
-        {% include 'includes/userfileslist.html' %}
+        <hr> {% include 'includes/userfileslist.html' %}
 
         <h1><b>Dashboard</b> - Resumen del Análisis</h1>
-        <hr>
-        
-        {% include 'includes/statistics.html' %}
+        <hr> {% include 'includes/statistics.html' %}
 
         <div class="row g-4 mt-4">
 

@@ -1,18 +1,16 @@
 {% extends 'layouts/basic.html' %} {% block body %} {% include 'includes/messages.html' %} {% from 'includes/formhelpers.html' import render_field %}
 
-<form method="POST" class="form-login">
-    <img class="mb-4" src="../static/img/icon.png" alt="" style="width: 72px; height: 72;">
+<form method="POST" class="form-login p-0">
+    <img class="mb-3" src="../static/img/icon.svg" alt="" style="width: 100px; height: 100px;">
 
     <h1 class="h3 mb-4 fw-normal"><b>Inicia Sesión</b></h1>
 
     <div class="form-floating">
-        <!-- <input type="email" id="email" class="form-control" placeholder="Email" required> -->
         {{render_field(form.emailLog, type="email", id="em", class="form-control", placeholder="Email")}}
         <label for="em" class="floating-input">Email</label>
     </div>
 
     <div class="form-floating">
-        <!-- <input type="password" id="password" class="form-control" placeholder="Contraseña" required> -->
         {{render_field(form.passwordLog, id="passwordLog", class="form-control pass-a", placeholder="Contraseña")}}
         <label for="passwordLog" class="floating-input">Contraseña</label>
     </div>
@@ -22,7 +20,7 @@
         </div> -->
 
     <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Ingresar</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    <p class="mt-5 mb-3 text-muted">Fabio Alejandro Castañeda - Ingeniería Mecatrónica (Universidad de Boyacá) - &copy; 2020 Copyright</p>
 </form>
 
 {% endblock %}

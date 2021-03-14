@@ -1,61 +1,110 @@
 {% extends 'layouts/complete.html' %} {% block body %}
 
-<main id="body" class="container my-5" onresize="setHeight()">
+<main id="body" class="container my-5">
 
     {% include 'includes/messages.html' %}
 
-    <h1 class="display-3 fw-bold mb-3">Generador de Reportes</h1>
-    <h2>Análisis preliminar de la calidad del agua con el sistema Roboat Stingray</h2>
+    <section class="row row-cols-1 align-items-center justify-content-around">
 
-    <hr class="my-4">
+        <div class="col-lg-7">
+            <h1 class="display-4 fw-bold mb-3 m-0">Generador de Reportes</h1>
+            <h2>Análisis preliminar de la calidad del agua con el sistema Roboat Stingray</h2>
 
-    <p class="lead">Este sitio es una aplicación web basada en Python, que te permitirá crear reportes preliminares sobre la calidad del agua gracias a los datos de medición obtenidos del sistema <b>Roboat Stingray</b>, alojados en el servidor de <b>Thinkspeak</b>.
-    </p>
+            <hr class="my-4">
 
-    <a class="btn btn-primary btn-lg" href="#" role="button">Ver Más</a>
+            <p class="lead">Este sitio es una aplicación web basada en Python, que te permitirá crear reportes preliminares sobre la calidad del agua gracias a los datos de medición obtenidos del sistema <b>Roboat Stingray</b>, alojados en el servidor de <b>Thinkspeak</b>.
+            </p>
 
-    <div class="row row-cols-1 g-4 my-3">
+            <div class="mt-3 mb-5 mx-2">
+                <p class="lead">Para ello debes:</p>
+
+                <div class="row align-items-center justify-content-around">
+                    <a class="btn btn-primary col-12 col-md-4 m-2" href="{{ url_for('signup') }}" type="button">📧 Registrarte Ahora</a>
+                    <b class="col-12 col-md-3 m-2 text-center">... O bien ...</b>
+                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('login') }}" type="button">🔑 Iniciar Sesión</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="d-none d-lg-block col-lg-5">
+            <img src="../static/img/banner.svg" alt="">
+        </div>
+
+    </section>
+
+    <section class="row row-cols-1 g-4">
+
+        <h2>Las variables que se analizan</h2>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
                 <img src="../static/img/ph.svg" class="card-img-top" alt="..." style="max-height: 75px;">
                 <div class="card-body">
                     <h5 class="card-title">pH</h5>
-                    <p class="card-text">Descripción breve de la variable. No tiene unidades de medición.</p>
+                    <p class="card-text">Es una medida que indica la acidez o la alcalinidad del agua.</p>
+                    <p class="card-text"> Aunque no tiene unidades de medición, los valores pueden oscilar en una escala numérica del 0 al 14.</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
                 <img src="../static/img/conductivity.svg" class="card-img-top" alt="..." style="max-height: 75px;">
                 <div class="card-body">
                     <h5 class="card-title">Conductividad Eléctrica</h5>
-                    <p class="card-text">Descripción breve de la variable. Sus unidades son los µS/cm.</p>
+                    <p class="card-text">Es la capacidad del agua para conducir una corriente eléctrica. Esta variable proporciona información sobre la descomposición de la materia orgánica y diversos contaminates.</p>
+                    <p class="card-text"> Sus unidades son los µS/cm.</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
                 <img src="../static/img/oxygen.svg" class="card-img-top" alt="..." style="max-height: 75px;">
                 <div class="card-body">
                     <h5 class="card-title">Oxígeno Disuelto</h5>
-                    <p class="card-text">Descripción breve de la variable. Sus unidades son los mg/cm.</p>
+                    <p class="card-text">Es la cantidad de oxígeno que se encuentra disuelta en el agua. Esta está determinada por la solubilidad del gas, la presión, la temperatura y la pureza del agua.</p>
+                    <p class="card-text">Sus unidades son los mg/L.</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card p-2" style="border: none; background-color: #eeeeee;">
+            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
                 <img src="../static/img/temperature.svg" class="card-img-top" alt="..." style="max-height: 75px;">
                 <div class="card-body">
                     <h5 class="card-title">Temperatura</h5>
-                    <p class="card-text">Descripción breve de la variable. Sus unidades son los °C.</p>
+                    <p class="card-text">Esta variable indica la cantidad de energía calórica que posee el cuerpo de agua. Aunque es una de las variables más comunes, es a su vez una de las más importantes de analizar.</p>
+                    <p>Sus unidades son los °C.</p>
                 </div>
             </div>
         </div>
-    </div>
+
+    </section>
+
+    <section class="container my-5">
+        <h2>Lo que debes hacer</h2>
+
+        <ul class="list-unstyled mt-4">
+            <li class="row align-items-center justify-content-evenly my-2">
+                <img class="col-3" src="../static/img/1.svg" alt="" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px;">
+                <img class="d-none d-md-block col-2" src="../static/img/cloud-upload.svg" alt="" style="max-height: 120px;">
+                <p class="lead col-7">Regístrate o Inicia Sesión, luego da click en el botón de Crear Reporte. Digita el Número de ID del Canal que te proveee la aplicación de Roboat Stingray.</p>
+            </li>
+            <li class="row align-items-center justify-content-evenly my-2">
+                <img class="col-3" src="../static/img/2.svg" alt="" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px;">
+                <img class="d-none d-md-block col-2" src="../static/img/survey.svg" alt="" style="max-height: 120px;">
+                <p class="lead col-7">Agrega la correspondiente información sobre el archivo para poder analizarlo.</p>
+            </li>
+            <li class="row align-items-center justify-content-evenly my-2">
+                <img class="col-3" src="../static/img/3.svg" alt="" style="max-height: 75px; min-height: 75px; max-width: 75px; min-width: 75px;">
+                <img class="d-none d-md-block col-2" src="../static/img/combo-chart.svg" alt="" style="max-height: 120px;">
+                <p class="lead col-7">Observa un resumen de los resultados obtenidos del análisis en la página web y descarga el archivo correspondiente con los resultados.</p>
+            </li>
+        </ul>
+
+    </section>
 
 </main>
 

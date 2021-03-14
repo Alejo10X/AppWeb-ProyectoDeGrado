@@ -3,9 +3,6 @@
 
     document.addEventListener('DOMContentLoaded', function() {
 
-        setHeight();
-        window.addEventListener("resize", setHeight);
-
         var title = document.title;
 
         var progressbar = $('#progressbar');
@@ -87,14 +84,3 @@
 
 
 })();
-
-
-function setHeight() {
-    var hWindow = window.innerHeight;
-    var hHeader = document.getElementById('header').clientHeight;
-    var hFooter = document.getElementById('footer').clientHeight;
-
-    var body = document.getElementById('body');
-
-    body.setAttribute('style', `min-height: calc(${hWindow}px - ${hHeader}px - ${hFooter}px);`);
-}
