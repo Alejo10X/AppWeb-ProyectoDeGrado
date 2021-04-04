@@ -11,31 +11,29 @@
         var three = $('#three')
 
 
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+
+        var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+
+        /* CKEDITOR.replace('placedescription', {
+            language: 'es',
+            extraPlugins: 'editorplaceholder,autogrow',
+            editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
+            autoGrow_minHeight: 250,
+            autoGrow_maxHeight: 400,
+            removePlugins: 'resize'
+        }); */
+
         switch (title) {
+
             case "Seleccionar BD · RS Report":
-
-                var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-
-                var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
-                    return new bootstrap.Popover(popoverTriggerEl)
-                })
 
                 progressbar.prop('style', 'width: 0%;');
 
                 two.removeClass('btn-primary');
                 two.addClass('btn-secondary');
-
-                three.removeClass('btn-primary');
-                three.addClass('btn-secondary');
-
-                break;
-
-            case "Características del Archivo · RS Report":
-
-                progressbar.prop('style', 'width: 50%;');
-
-                two.removeClass('btn-secondary');
-                two.addClass('btn-primary');
 
                 three.removeClass('btn-primary');
                 three.addClass('btn-secondary');
@@ -52,14 +50,6 @@
                 three.removeClass('btn-primary');
                 three.addClass('btn-secondary');
 
-                /* CKEDITOR.replace('placedescription', {
-                    language: 'es',
-                    extraPlugins: 'editorplaceholder,autogrow',
-                    editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
-                    autoGrow_minHeight: 250,
-                    autoGrow_maxHeight: 400,
-                    removePlugins: 'resize'
-                }); */
                 break;
 
             case "Resumen del Análisis · RS Report":

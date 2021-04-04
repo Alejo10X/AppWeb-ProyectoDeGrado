@@ -105,7 +105,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('Has Cerrado la Sesión', 'alert')
+    flash('Has Cerrado la Sesión', 'warning')
     return redirect(url_for('home'))
 
 
