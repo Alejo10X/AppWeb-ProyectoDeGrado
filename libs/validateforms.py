@@ -52,11 +52,3 @@ class LoginForm(Form):
         validators.Length(min=6, message='La contraseña debe poseer al menos 6 caracteres de longitud'),
         validators.DataRequired('Este campo es requerido')
     ])
-
-
-
-class UploadFile(FlaskForm):
-    userFile = FileField('', [
-        FileRequired('Este campo es requerido'),
-        FileAllowed(['xlsx', 'xls', 'csv', 'ods'], 'El archivo ingresado no es válido')
-    ])

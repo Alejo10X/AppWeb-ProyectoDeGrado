@@ -2,12 +2,17 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 # Useful .gitignore templates: https://github.com/github/gitignore
 
+desktop.ini
+
+env
 doc
 dist
 files
 node_modules
 site.webmanifest
 
-__pycache__/app.cpython-38.pyc
+static/img/Channel ID.ai
+
 libs/__pycache__
+__pycache__/app.cpython-38.pyc
 

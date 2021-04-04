@@ -1,0 +1,37 @@
+{% extends 'layouts/complete.html' %} {% block body %}
+
+<main>
+    <div id="body" class="container my-5">
+
+        <h2>Resumen del Análisis</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis hic cupiditate cumque illum numquam sed, delectus inventore harum error eius qui ab. Perspiciatis corporis repellat architecto provident impedit neque?</p>
+
+        {% include 'includes/progress.html' %} {% include 'includes/statistics.html' %}
+
+        <div class="row g-4 mt-4">
+
+            <!-- Gráfico de Thinkspeak -->
+            <div class="col-md-5">
+                <div class="card h-100">
+                    <h5 class="card-header">Gráfica Seleccionada:</h5>
+                    <div class="card-body">
+                        <p>Aquí va el gráfico...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa del Recorrido -->
+            <div class="col-md-7">
+                <div class="card h-100">
+                    <h5 class="card-header">Mapa del Recorrido:</h5>
+                    <div class="card-body p-0 pe-4 pe-md-0">
+                        <div id="mapid" style="min-height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+{% endblock %}

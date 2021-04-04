@@ -5,33 +5,6 @@
         <h1><b>Mis Archivos</b> - Mediciones y Reportes</h1>
         <hr> {% include 'includes/userfileslist.html' %}
 
-        <h1><b>Dashboard</b> - Resumen del Análisis</h1>
-        <hr> {% include 'includes/statistics.html' %}
-
-        <div class="row g-4 mt-4">
-
-            <!-- Gráfico de Thinkspeak -->
-            <div class="col-md-5">
-                <div class="card h-100" style="min-height: 270px;">
-                    <h5 class="card-header">Gráfica Seleccionada:</h5>
-                    <div class="card-body p-0">
-                        <iframe src="https://thingspeak.com/channels/1160623/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&max=14&min=0&title=Medici%C3%B3n+de+pH+-+Sonda+Atlas+Scientific&type=line&xaxis=Fecha%2FHora&yaxis=pH" style="height: 260px; width: 100%;"></iframe>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mapa del Recorrido -->
-            <div class="col-md-7">
-                <div class="card h-100">
-                    <h5 class="card-header">Mapa del Recorrido:</h5>
-                    <div class="card-body p-0">
-                        <div id="mapid" style="min-height: 270px;"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 </main>
 {% endblock %}

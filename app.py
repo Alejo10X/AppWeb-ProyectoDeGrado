@@ -2,7 +2,7 @@ import requests
 from functools import wraps
 from werkzeug.utils import secure_filename
 from libs.functions import uploadFileTime, generateFileName, determineFileType, groupFileData
-from libs.validateforms import SignupForm, LoginForm, UploadFile
+from libs.validateforms import SignupForm, LoginForm
 from libs.firebase import signUp, logIn, userDataStorage, getUserData, userFileStorage, userAddFileHistory, getFileURL
 from flask import Flask, render_template, request, flash, url_for, redirect, session, jsonify
 
@@ -88,8 +88,8 @@ def login():
             session['user'] = data['name'] + ' ' + data['lastname']
             session['email'] = data['email']
 
-            msg = 'Ahora puedes crear nuevos reportes y descargarlos'
-            return render_template('home.html', msg=msg)
+            flash('Ahora puedes crear nuevos reportes y descargarlos', 'home')
+            return render_template('home.html')
 
         else:
             flash('Error iniciando sesión, el correo o la contraseña no coinciden', 'danger')
@@ -105,8 +105,8 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    info = 'Has cerrado la sesión'
-    return render_template('home.html', info=info)
+    flash('Has Cerrado la Sesión', 'alert')
+    return redirect(url_for('home'))
 
 
 
@@ -115,41 +115,11 @@ def logout():
 @app.route('/upload', methods=['GET', 'POST'])
 @is_logged_in
 def upload():
-    title = 'Subir Archivo' + brand
+    title = 'Seleccionar BD' + brand
 
     # TODO Verificar que no hayan archivos repetidos, de lo contrario cambiar datos o sobreescribir.
 
-    form = UploadFile()
-
-    if form.validate_on_submit():
-
-        origin = 'user'
-        
-        f = form.userFile.data
-        filename = secure_filename(f.filename)
-
-        if userFileStorage(session['userkey'], filename, f):
-
-            filetype = determineFileType(filename)
-            date, time = uploadFileTime()
-            url = getFileURL(session['userkey'], filename)
-
-            session['filedata'] = groupFileData(filename, filetype, origin, date, time, url)
-
-            if userAddFileHistory(session['userkey'], session['filedata']):
-                flash('El archivo ahora se encuentra en la base de datos', 'success')
-                return redirect(url_for('filedata'))
-            
-            else:
-                flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
-                return redirect(url_for('upload'))
-
-        else:
-            flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
-            return redirect(url_for('upload'))
-
-
-    elif 'channelID' in request.form:
+    if 'channelID' in request.form:
 
         origin = 'cloud'
 
@@ -171,41 +141,40 @@ def upload():
             session['filedata'] = groupFileData(filename, filetype, origin, date, time, url)
 
             if userAddFileHistory(session['userkey'], session['filedata']):
-                flash('El archivo ahora se encuentra en la base de datos', 'success')
-                return redirect(url_for('filedata'))
+                return redirect(url_for('generator'))
             
             else:
                 flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
                 return redirect(url_for('upload'))
 
         else:
-            flash('El número del Channel ID que escribió no existe o es incorrecto. Pruebe escribiendo otro número.', 'danger')
+            flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.', 'danger')
             return redirect(url_for('upload'))
 
-    return render_template('fileupload.html', title=title, form=form)
+    return render_template('upload.html', title=title)
 
 
 
-# ANCHOR Características requeridas para leer los datos del archivo
 
-@app.route('/filedata', methods=['GET', 'POST'])
+@app.route('/generator', methods=['GET', 'POST'])
 @is_logged_in
-def filedata():
-    title = 'Características del Archivo' + brand
+def generator():
+    title = 'Creación del Reporte' + brand
 
     if request.method == 'POST':
-        return redirect(url_for('reportdata'))
+            return redirect(url_for('review'))
 
-    return render_template('filedata.html', title=title)
-
-
+    return render_template('generator.html', title=title)
 
 
-@app.route('/reportdata')
+
+
+@app.route('/review')
 @is_logged_in
-def reportdata():
-    title = 'Creación del Reporte' + brand
-    return render_template('reportdata.html', title=title)
+def review():
+    title = 'Resumen del Análisis' + brand
+
+    return render_template('review.html', title=title)
 
 
 

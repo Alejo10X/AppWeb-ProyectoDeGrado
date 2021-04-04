@@ -12,7 +12,7 @@
 
 
         switch (title) {
-            case "Subir Archivo · RS Report":
+            case "Seleccionar BD · RS Report":
 
                 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 
@@ -44,6 +44,26 @@
 
             case "Creación del Reporte · RS Report":
 
+                progressbar.prop('style', 'width: 50%;');
+
+                two.removeClass('btn-secondary');
+                two.addClass('btn-primary');
+
+                three.removeClass('btn-primary');
+                three.addClass('btn-secondary');
+
+                /* CKEDITOR.replace('placedescription', {
+                    language: 'es',
+                    extraPlugins: 'editorplaceholder,autogrow',
+                    editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
+                    autoGrow_minHeight: 250,
+                    autoGrow_maxHeight: 400,
+                    removePlugins: 'resize'
+                }); */
+                break;
+
+            case "Resumen del Análisis · RS Report":
+
                 progressbar.prop('style', 'width: 100%;');
 
                 two.removeClass('btn-secondary');
@@ -51,18 +71,6 @@
 
                 three.removeClass('btn-secondary');
                 three.addClass('btn-primary');
-
-                CKEDITOR.replace('placedescription', {
-                    language: 'es',
-                    extraPlugins: 'editorplaceholder,autogrow',
-                    editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
-                    autoGrow_minHeight: 250,
-                    autoGrow_maxHeight: 400,
-                    removePlugins: 'resize'
-                });
-                break;
-
-            case "Dashboard · RS Report":
 
                 var map = L.map('mapid').setView([5.567541725282831, -73.33807725929755], 17);
 
@@ -73,6 +81,12 @@
                 L.marker([5.567541725282831, -73.33807725929755]).addTo(map)
                     .bindPopup('Tooltip de Prueba')
                     .openPopup()
+
+                break;
+
+            case "Dashboard · RS Report":
+
+
 
                 break;
 

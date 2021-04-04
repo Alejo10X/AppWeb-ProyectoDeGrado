@@ -6,7 +6,7 @@
 
     <section class="row row-cols-1 align-items-center justify-content-around">
 
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <h1 class="display-4 fw-bold mb-3 m-0">Generador de Reportes</h1>
             <h2>Análisis preliminar de la calidad del agua con el sistema Roboat Stingray</h2>
 
@@ -15,23 +15,27 @@
             <p class="lead">Este sitio es una aplicación web basada en Python, que te permitirá crear reportes preliminares sobre la calidad del agua gracias a los datos de medición obtenidos del sistema <b>Roboat Stingray</b>, alojados en el servidor de <b>Thinkspeak</b>.
             </p>
 
+            {% if not(session.user) %}
             <div class="mt-3 mb-5 mx-2">
-                <p class="lead">Para ello debes:</p>
+                <p class="lead">Para ello:</p>
 
-                <div class="row align-items-center justify-content-around">
-                    <a class="btn btn-primary col-12 col-md-4 m-2" href="{{ url_for('signup') }}" type="button">📧 Registrarte Ahora</a>
+                <div class="row align-items-center justify-content-center">
+                    <a class="btn btn-outline-primary col-12 col-md-3 m-2" href="{{ url_for('signup') }}" type="button">Regístrate Ahora</a>
                     <b class="col-12 col-md-3 m-2 text-center">... O bien ...</b>
-                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('login') }}" type="button">🔑 Iniciar Sesión</a>
+                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('login') }}" type="button">Inicia Sesión</a>
                 </div>
             </div>
+            {% endif %}
 
         </div>
 
-        <div class="d-none d-lg-block col-lg-5">
-            <img src="../static/img/banner.svg" alt="">
+        <div class="d-none d-lg-block col-lg-6">
+            <!-- <img src="../static/img/banner.svg" alt=""> -->
+            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_4ejZJA.json" background="transparent" speed="1" style="width: 100%; height: 470px;" autoplay></lottie-player>
         </div>
 
     </section>
+
 
     <section class="row row-cols-1 g-4">
 

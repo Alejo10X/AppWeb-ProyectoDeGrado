@@ -1,0 +1,45 @@
+{% extends 'layouts/complete.html' %} {% block body %}
+
+<main id="body" class="container my-5">
+
+    <h2>Selecciona la Base de Datos</h2>
+    <p>Primero debes seleccionar la colección de mediciones tomadas desde la app móvil para que se genere el reporte; así prodremos entregarte el estimado de la calidad del agua de la zona que estás monitoreando.</p>
+
+    {% include 'includes/progress.html' %} {% include 'includes/messages.html' %}
+
+    <div class="row g-0 align-items-center">
+
+        <div class="col-md-4 text-center">
+            <img src="/static/img/app-db-id.png" alt="" style="width: 100%; max-width: 250px; padding: 1rem;">
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="card">
+                <h4 class="card-header">Ingresa el Número de ID Único</h4>
+                <div class="card-body">
+                    <p class="card-text">En el espacio a continuación, ingresa el Número de ID de la Base de Datos que genera la aplicación móvil del sistema Roboat Stingray para guardar las mediciones de las variables de calidad del agua, tal como se ve en la imagen.</p>
+                    <p class="card-text">Cada nueva serie de mediciones se guarda en una base de datos única, y este número le permite al sistema saber donde se encuentran los datos que quieres que sean analizados.</p>
+
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="channelID"></label>
+                            <div class="input-group">
+                                <span for="channelID" class="input-group-text">Num. ID</span>
+                                <input type="number" class="form-control text-center" name="channelID" id="channelID" placeholder="1234567" min=0 required>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg mt-2">Cargar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}
