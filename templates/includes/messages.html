@@ -7,7 +7,7 @@
                 {% if category == 'home' %}
 
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <h4 class="alert-heading"><b>Bienvenido! - {{ session.user }}</b></h4>
+                        <h4 class="alert-heading"><b>Bienvenido! - {{ session.user['data']['name'] + ' ' + session.user['data']['lastname'] }}</b></h4>
                         <hr class="m-0 mb-2">
                         <p class="mb-0">{{ message }}</p>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

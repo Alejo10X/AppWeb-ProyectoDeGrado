@@ -1,4 +1,5 @@
 {% extends 'layouts/complete.html' %} {% block body %}
+{% from 'includes/formhelpers.html' import render_field %}
 
 <main id="body" class="container my-5">
 
@@ -25,13 +26,8 @@
                 </div>
 
                 <div class="col-lg mb-3">
-                    <label for="filedate" class="form-label">Fecha de Carga</label>
+                    <label for="filedate" class="form-label">Fecha/Hora de Carga</label>
                     <input type="text" class="form-control text-secondary" id="filedate" placeholder="00/00/00" value="{{session.filedata['date']}}" readonly>
-                </div>
-
-                <div class="col-lg mb-3">
-                    <label for="filetime" class="form-label">Hora de Carga</label>
-                    <input type="text" class="form-control text-secondary" id="filetime" placeholder="00:00:00" value="{{session.filedata['time']}}" readonly>
                 </div>
             </div>
 
@@ -54,20 +50,20 @@
                     <h5 class="card-header">Datos Básicos</h5>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Título del Informe: </label>
-                            <input type="text" id="" class="form-control" placeholder="Escribe el título" required>
+                            <label for="title" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Título del Informe: </label>
+                            {{render_field(form.title, id="title", class="form-control", placeholder="Escribe el título")}}
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Autor/es: </label>
-                            <input type="text" id="" class="form-control" placeholder="Escribe el autor/autores" required>
+                            <label for="author" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Autor/es: </label>
+                            {{render_field(form.author, id="author", class="form-control", placeholder="Escribe el autor/autores")}}
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Dirigido a: </label>
-                            <input type="text" id="" class="form-control" placeholder="Escribe la organización o persona a la cual va dirigido el informe">
+                            <label for="sendTo" class="form-label">Dirigido a: </label>
+                            {{render_field(form.sendTo, id="sendTo", class="form-control", placeholder="Escribe la organización o persona a la cual va dirigido el informe")}}
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
-                            <textarea id="reportreason" class="form-control" style="height: 290px; min-height: 190px; max-height: 400px;" required></textarea>
+                            <label for="reason" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
+                            {{render_field(form.reason, id="reason", class="form-control", style="height: 290px; min-height: 190px; max-height: 240px;")}}
                         </div>
                     </div>
                 </div>
@@ -79,41 +75,21 @@
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-md-4 mb-3 mb-md-0">
-                                <label class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Tipo de Fuente:</label>
-                                <select class="form-select" required>
-                                    <option disabled selected>Selecciona una opción</option>
-                                    <option value="1">Arroyo</option>
-                                    <option value="2">Canal</option>
-                                    <option value="3">Charco/a</option>
-                                    <option value="4">Ciénaga</option>
-                                    <option value="5">Embalse</option>
-                                    <option value="6">Estanque</option>
-                                    <option value="7">Estero</option>
-                                    <option value="8">Humedal</option>
-                                    <option value="9">Lago</option>
-                                    <option value="10">Laguna</option>
-                                    <option value="11">Marisma</option>
-                                    <option value="12">Pantano</option>
-                                    <option value="13">Paso</option>
-                                    <option value="14">Quebrada</option>
-                                    <option value="15">Rambla</option>
-                                    <option value="16">Riacho</option>
-                                    <option value="17">Riachuelo</option>
-                                    <option value="18">Río</option>
-                                  </select>
+                                <label for="sourceType" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Tipo de Fuente:</label>
+                                {{render_field(form.sourceType, class="form-select")}}
                             </div>
                             <div class="col-md-8">
-                                <label class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre de la Fuente Hídrica:</label>
-                                <input type="text" class="form-control" placeholder="Escribe el nombre de la fuente hídrica" required>
+                                <label for="sourceName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre de la Fuente Hídrica:</label>
+                                {{render_field(form.sourceName, id="sourceName", class="form-control", placeholder="Escribe el nombre de la fuente hídrica")}}
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre/Ubicación de la Zona de Estudio:</label>
-                            <input type="text" class="form-control" placeholder="Escribe el nombre o ubicación del lugar donde se realizaron las mediciones" required>
+                            <label for="zoneName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre/Ubicación de la Zona de Estudio:</label>
+                            {{render_field(form.zoneName, id="zoneName", class="form-control", placeholder="Escribe el nombre o ubicación del lugar donde se realizaron las mediciones")}}
                         </div>
                         <div class="mb-4">
-                            <label for="" class="form-label"> Descripción del lugar: </label>
-                            <textarea id="placedescription" class="form-control" style="height: 310px; min-height: 210px; max-height: 420px;"></textarea>
+                            <label for="descript" class="form-label"> Descripción del lugar: </label>
+                            {{render_field(form.descript, id="descript", class="form-control", style="height: 310px; min-height: 210px; max-height: 420px;")}}
                         </div>
                     </div>
                 </div>
@@ -132,4 +108,5 @@
     </form>
 
 </main>
+
 {% endblock %}

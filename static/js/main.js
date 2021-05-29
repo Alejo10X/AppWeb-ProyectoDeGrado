@@ -17,15 +17,6 @@
             return new bootstrap.Popover(popoverTriggerEl)
         })
 
-        /* CKEDITOR.replace('placedescription', {
-            language: 'es',
-            extraPlugins: 'editorplaceholder,autogrow',
-            editorplaceholder: 'Describe el lugar en el cual realizaste las mediciones; toda la información se guarda, incluyendo el formato del texto, imágenes, tablas, etc...',
-            autoGrow_minHeight: 250,
-            autoGrow_maxHeight: 400,
-            removePlugins: 'resize'
-        }); */
-
         switch (title) {
 
             case "Seleccionar BD · RS Report":
@@ -49,6 +40,8 @@
 
                 three.removeClass('btn-primary');
                 three.addClass('btn-secondary');
+
+                $('#sourceType option:first-child').attr('disabled', 'disabled');
 
                 break;
 

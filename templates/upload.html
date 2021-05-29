@@ -1,4 +1,4 @@
-{% extends 'layouts/complete.html' %} {% block body %}
+{% extends 'layouts/complete.html' %} {% block body %} {% from 'includes/formhelpers.html' import render_field %}
 
 <main id="body" class="container my-5">
 
@@ -23,11 +23,8 @@
 
                     <form method="POST">
                         <div class="mb-3">
-                            <label for="channelID"></label>
-                            <div class="input-group">
-                                <span for="channelID" class="input-group-text">Num. ID</span>
-                                <input type="number" class="form-control text-center" name="channelID" id="channelID" placeholder="1234567" min=0 required>
-                            </div>
+                            <label for="channel" class="fw-bold mb-2">Número de ID:</label>
+                            {{render_field(form.channel, id="channelID", class="form-control text-center", min=0, placeholder="1234567")}}
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg mt-2">Cargar</button>

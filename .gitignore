@@ -3,6 +3,7 @@
 # Useful .gitignore templates: https://github.com/github/gitignore
 
 desktop.ini
+Screenshots.lnk
 
 env
 doc
@@ -10,6 +11,9 @@ dist
 files
 node_modules
 site.webmanifest
+
+.idea
+.vscode
 
 static/img/Channel ID.ai
 

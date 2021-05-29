@@ -1,10 +1,15 @@
+import io
 import requests
+
 from functools import wraps
-from werkzeug.utils import secure_filename
-from libs.functions import uploadFileTime, generateFileName, determineFileType, groupFileData
-from libs.validateforms import SignupForm, LoginForm
+
+from libs.functions import uploadDatetime, generateFileName
+from libs.appforms import SignupForm, LoginForm, ChannelForm, ReportForm
 from libs.firebase import signUp, logIn, userDataStorage, getUserData, userFileStorage, userAddFileHistory, getFileURL
-from flask import Flask, render_template, request, flash, url_for, redirect, session, jsonify
+from libs.data import dataAnalysis
+from libs.wordfile import createReport
+
+from flask import Flask, render_template, request, flash, url_for, redirect, session
 
 
 app = Flask(__name__)
@@ -82,14 +87,16 @@ def login():
 
         if logIn(email, password):
 
-            session['logged'] = True
-            session['userkey'], data = getUserData(email)
+            try:
+                session['logged'] = True
+                session['user'] = getUserData(email)
 
-            session['user'] = data['name'] + ' ' + data['lastname']
-            session['email'] = data['email']
+                flash('Ahora puedes crear nuevos reportes y descargarlos', 'home')
+                return render_template('home.html')
 
-            flash('Ahora puedes crear nuevos reportes y descargarlos', 'home')
-            return render_template('home.html')
+            except:
+                flash('Ha ocurrido un error a nivel interno, intenta creando un nuevo usuario', 'danger')
+                return redirect(url_for('login'))
 
         else:
             flash('Error iniciando sesión, el correo o la contraseña no coinciden', 'danger')
@@ -117,54 +124,97 @@ def logout():
 def upload():
     title = 'Seleccionar BD' + brand
 
+    form = ChannelForm(request.form)
+
     # TODO Verificar que no hayan archivos repetidos, de lo contrario cambiar datos o sobreescribir.
 
-    if 'channelID' in request.form:
+    if request.method == 'POST' and form.validate():
 
-        origin = 'cloud'
+        channel = str(form.channel.data)
+        session['channel'] = channel
 
-        channelID = request.form['channelID']
+        api_url = 'https://api.thingspeak.com/channels/{}'.format(channel)
+        api_resp = requests.get(api_url + '.json')
 
-        cloudurl = 'https://api.thingspeak.com/channels/'+channelID+'/feeds.csv'
-        f = requests.get(cloudurl)
+        if api_resp.ok:
 
-        if f.ok == True:
+            ch_info = api_resp.json()
+            session['chInfo'] = ch_info
 
-            filename = generateFileName(channelID)
-            filetype = determineFileType(filename)
+            filename = generateFileName(1, ch_info)
 
-            userFileStorage(session['userkey'], filename, f)
+            file_resp = requests.get(api_url + '/feeds.csv')
 
-            date, time = uploadFileTime()
-            url = getFileURL(session['userkey'], filename)
+            if file_resp.ok:
 
-            session['filedata'] = groupFileData(filename, filetype, origin, date, time, url)
+                f = io.StringIO(file_resp.content.decode('utf-8'))
 
-            if userAddFileHistory(session['userkey'], session['filedata']):
-                return redirect(url_for('generator'))
-            
+                userFileStorage(1, session['user']['key'], filename, f)
+
+                filedata = {
+                    'filename': filename,
+                    'date': uploadDatetime(),
+                    'url': getFileURL(session['user']['key'], filename)
+                }
+
+                session['filedata'] = filedata
+
+                if userAddFileHistory(session['user']['key'], filedata):
+                    return redirect(url_for('generator'))
+
+                else:
+                    flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
+                    return redirect(url_for('upload'))
+
             else:
-                flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
+                flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.', 'danger')
                 return redirect(url_for('upload'))
 
         else:
             flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.', 'danger')
             return redirect(url_for('upload'))
 
-    return render_template('upload.html', title=title)
+    return render_template('upload.html', title=title, form=form)
 
 
 
+# ANCHOR Generador de Reportes - Análisis de Calidad
 
 @app.route('/generator', methods=['GET', 'POST'])
 @is_logged_in
 def generator():
     title = 'Creación del Reporte' + brand
 
-    if request.method == 'POST':
-            return redirect(url_for('review'))
+    form = ReportForm(request.form)
 
-    return render_template('generator.html', title=title)
+    if request.method == 'POST' and form.validate():
+
+        report_data = {
+            'title':  form.title.data,
+            'author': form.author.data,
+            'sendTo': form.sendTo.data,
+            'reason': form.reason.data,
+            'sourceType': form.sourceType.data,
+            'sourceName': form.sourceName.data,
+            'zoneName': form.zoneName.data,
+            'descrip': form.descript.data
+        }
+
+        file_resp = requests.get(session['filedata']['url'])
+
+        if file_resp.ok:
+
+            analysis = dataAnalysis(io.StringIO(file_resp.content.decode('utf-8')))
+            report = createReport(report_data, analysis)
+
+            filename = generateFileName(2, session['chInfo'])
+
+            if userFileStorage(2, session['user']['key'], filename, report):
+                print('ok')
+
+        return redirect(url_for('review'))
+
+    return render_template('generator.html', title=title, form=form)
 
 
 
@@ -206,4 +256,6 @@ def docs():
 
 
 if __name__ == "__main__":
+    import webbrowser
+    webbrowser.open("http://127.0.0.1:5000/")
     app.run(debug=True)

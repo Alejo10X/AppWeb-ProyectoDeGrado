@@ -73,21 +73,30 @@ def getUserData(email):
     for user in users.each():
 
         if user.val()['email'] == email:
-            return user.key(), user.val()
+
+            data = {
+                'key': user.key(),
+                'data': user.val()
+            }
+
+            return data
             
         else:
-            return None, None
+            return None
 
 
 
 
-def userFileStorage(userkey, filename, f):
+def userFileStorage(selector, userkey, filename, f):
     """Almacenamiento de los archivos del usuario en Firebase"""
 
     storage = firebase.storage()
 
     try:
-        storage.child('uploadedFiles/' + userkey + '/' + filename).put(f)
+        if selector == 1:
+            storage.child('uploadedFiles/' + userkey + '/' + filename).put(f)
+        elif selector == 2:
+            storage.child('generatedFiles/' + userkey + '/' + filename).put(f)
     except:
         return False
 
