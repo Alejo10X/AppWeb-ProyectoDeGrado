@@ -4,29 +4,66 @@
     <div id="body" class="container my-5">
 
         <h2>Resumen del Análisis</h2>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis hic cupiditate cumque illum numquam sed, delectus inventore harum error eius qui ab. Perspiciatis corporis repellat architecto provident impedit neque?</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis hic cupiditate cumque illum numquam
+            sed, delectus inventore harum error eius qui ab. Perspiciatis corporis repellat architecto provident impedit
+            neque?</p>
 
-        {% include 'includes/progress.html' %} {% include 'includes/statistics.html' %}
+        {% include 'includes/progress.html' %}
 
-        <div class="row g-4 mt-4">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span>El reporte preliminar de calidad de agua se ha generado correctamente.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        {% if session.URL_A and session.URL_B %}
+            <div class="mb-3 d-grid gap-2 d-md-block text-end">
+                <a type="button" href="{{session.URL_A}}" class="btn btn-lg me-md-3" style="color: white; background-color: MediumSeaGreen">
+                    Descargar Mediciones <i class="bi bi-file-earmark-excel"></i>
+                </a>
+
+                <a type="button" href="{{session.URL_B}}" class="btn btn-lg" style="color: white; background-color: RoyalBlue">
+                    Descargar Reporte <i class="bi bi-file-earmark-word"></i>
+                </a>
+            </div>
+        {% endif %}
+
+        {% include 'includes/filedata.html' %}
+
+        <h3>Estadísticas</h3>
+        <hr class="mt-2 mb-4">
+
+        {% include 'includes/statistics.html' %}
+
+        <h3 class="mt-4">Información Interactiva</h3>
+        <hr class="mt-2 mb-4">
+
+        <div class="row g-4">
 
             <!-- Gráfico de Thinkspeak -->
-            <div class="col-md-6">
-                <div class="card" style="min-height: 25rem; height: 100%;">
+            <div class="col-lg-6">
+                <div class="card" style="min-height: 500px; height: 100%;">
                     <div class="card-header">
                         <h5>Gráfica Seleccionada:</h5>
                         <ul class="nav nav-tabs card-header-tabs" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="ph-tab" style="color:#495057; cursor: pointer;" data-bs-toggle="tab" data-bs-target="#ph-plt" role="tab" aria-controls="ph-plt" aria-selected="true">pH</a>
+                                <a class="nav-link active" id="ph-tab" style="color:#495057; cursor: pointer;"
+                                   data-bs-toggle="tab" data-bs-target="#ph-plt" role="tab" aria-controls="ph-plt"
+                                   aria-selected="true">pH</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="k-tab" style="color:#495057; cursor: pointer;" data-bs-toggle="tab" data-bs-target="#k-plt" role="tab" aria-controls="k-plt" aria-selected="false">Conductividad</a>
+                                <a class="nav-link" id="k-tab" style="color:#495057; cursor: pointer;"
+                                   data-bs-toggle="tab" data-bs-target="#k-plt" role="tab" aria-controls="k-plt"
+                                   aria-selected="false">Conductividad</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="od-tab" style="color:#495057; cursor: pointer;" data-bs-toggle="tab" data-bs-target="#od-plt" role="tab" aria-controls="od-plt" aria-selected="false">Oxígeno Disuelto</a>
+                                <a class="nav-link" id="od-tab" style="color:#495057; cursor: pointer;"
+                                   data-bs-toggle="tab" data-bs-target="#od-plt" role="tab" aria-controls="od-plt"
+                                   aria-selected="false">Oxígeno Disuelto</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="t-tab" style="color:#495057; cursor: pointer;" data-bs-toggle="tab" data-bs-target="#t-plt" role="tab" aria-controls="t-plt" aria-selected="false">Temperatura</a>
+                                <a class="nav-link" id="t-tab" style="color:#495057; cursor: pointer;"
+                                   data-bs-toggle="tab" data-bs-target="#t-plt" role="tab" aria-controls="t-plt"
+                                   aria-selected="false">Temperatura</a>
                             </li>
                         </ul>
                     </div>
@@ -35,13 +72,21 @@
 
                         <div class="tab-content" id="content" style="height: 100%; display: block;">
 
-                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade show active" id="ph-plt" aria-labelledby="ph-tab" src="https://api.thingspeak.com/channels/{{session.channel}}/charts/1?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%2300c889&yaxis=pH&title="></iframe>
+                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade show active" id="ph-plt"
+                                    aria-labelledby="ph-tab"
+                                    src="https://api.thingspeak.com/channels/{{session.channel}}/charts/1?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%2300c889&yaxis=pH&title="></iframe>
 
-                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="k-plt" aria-labelledby="k-tab" src="https://api.thingspeak.com/channels/{{session.channel}}/charts/2?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%23dab900&yaxis=Conductividad+%28%CE%BCS%2Fcm%29&title="></iframe>
+                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="k-plt"
+                                    aria-labelledby="k-tab"
+                                    src="https://api.thingspeak.com/channels/{{session.channel}}/charts/2?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%23dab900&yaxis=Conductividad+%28%CE%BCS%2Fcm%29&title="></iframe>
 
-                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="od-plt" aria-labelledby="od-tab" src="https://api.thingspeak.com/channels/{{session.channel}}/charts/3?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%2300acda&yaxis=Ox%C3%ADgeno+Disuelto+%28mg%2FL%29&title="></iframe>
+                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="od-plt"
+                                    aria-labelledby="od-tab"
+                                    src="https://api.thingspeak.com/channels/{{session.channel}}/charts/3?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%2300acda&yaxis=Ox%C3%ADgeno+Disuelto+%28mg%2FL%29&title="></iframe>
 
-                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="t-plt" aria-labelledby="t-tab" src="https://api.thingspeak.com/channels/{{session.channel}}/charts/4?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%23da0000&&yaxis=Temperatura+%28%C2%B0C%29&title="></iframe>
+                            <iframe style="width: 100%; height: 100%;" class="tab-pane fade active" id="t-plt"
+                                    aria-labelledby="t-tab"
+                                    src="https://api.thingspeak.com/channels/{{session.channel}}/charts/4?bgcolor=%23ffffff&width=auto&height=auto&dynamic=true&type=line&xaxis=Fecha%2FHora&color=%23da0000&&yaxis=Temperatura+%28%C2%B0C%29&title="></iframe>
 
                         </div>
 
@@ -50,12 +95,13 @@
                 </div>
             </div>
 
+
             <!-- Mapa del Recorrido -->
-            <div class="col-md-6">
-                <div class="card h-100">
+            <div class="col-lg-6">
+                <div class="card h-100" style="min-height: 500px;">
                     <h5 class="card-header">Mapa del Recorrido:</h5>
                     <div class="card-body p-0">
-                        <div id="mapid" style="min-height: 500px;"></div>
+                        <iframe src="{{ url_for('map') }}" title="mapa" style="height: 100%; width: 100%;"></iframe>
                     </div>
                 </div>
             </div>

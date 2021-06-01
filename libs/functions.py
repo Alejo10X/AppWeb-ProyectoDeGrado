@@ -1,4 +1,5 @@
 import locale
+import pandas as pd
 from datetime import datetime
 
 from werkzeug.utils import secure_filename
@@ -25,3 +26,7 @@ def generateFileName(selector, data):
         filename = 'ReportFile_{}.docx'.format(txtname)
 
     return secure_filename(filename)
+
+
+def dataframeToList(df):
+    return df.tolist()

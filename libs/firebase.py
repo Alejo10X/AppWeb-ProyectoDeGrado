@@ -42,7 +42,7 @@ def logIn(email, password):
         auth.sign_in_with_email_and_password(email, password)
     except:
         return False
-    
+
     return True
 
 
@@ -80,7 +80,7 @@ def getUserData(email):
             }
 
             return data
-            
+
         else:
             return None
 
@@ -105,26 +105,32 @@ def userFileStorage(selector, userkey, filename, f):
 
 
 
-def getFileURL(userkey, filename):
+def getFileURL(selector, userkey, filename):
     storage = firebase.storage()
 
     try:
-        url = storage.child('uploadedFiles/' + userkey + '/' + filename).get_url(None)
+        if selector == 1:
+            url = storage.child('uploadedFiles/' + userkey + '/' + filename).get_url(None)
+        elif selector == 2:
+            url = storage.child('generatedFiles/' + userkey + '/' + filename).get_url(None)
     except:
         return None
-    
+
     return url
 
 
 
 
-def userAddFileHistory(userkey, filedata):
+def userAddFileHistory(selector, userkey, filedata):
 
     db = firebase.database()
 
     try:
-        db.child('users').child(userkey).child('UploadedFiles').push(filedata)
+        if selector == 1:
+            db.child('users').child(userkey).child('UploadedFiles').push(filedata)
+        elif selector == 2:
+            db.child('users').child(userkey).child('GeneratedFiles').push(filedata)
     except:
         return False
-    
+
     return True

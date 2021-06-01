@@ -15,30 +15,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 
-    <div class="card mb-5">
-        <h5 class="card-header text-secondary">Datos Básicos</h5>
-        <div class="card-body text-secondary">
-
-            <div class="row">
-                <div class="col-lg mb-3">
-                    <label for="filename" class="form-label">Nombre del Archivo</label>
-                    <input type="text" class="form-control text-secondary" id="filename" placeholder="--Archivo.ext--" value="{{session.filedata['filename']}}" readonly>
-                </div>
-
-                <div class="col-lg mb-3">
-                    <label for="filedate" class="form-label">Fecha/Hora de Carga</label>
-                    <input type="text" class="form-control text-secondary" id="filedate" placeholder="00/00/00" value="{{session.filedata['date']}}" readonly>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
+    {% include 'includes/filedata.html' %}
 
     <h3 class="mb-3">Información del Reporte a Generar</h3>
 
     <div class="alert alert-primary">
-        <b></b>Ten en cuenta que los campos marcados con <span class="badge rounded-pill bg-warning text-dark"><b>*</b></span> son obligatorios para poder crear el informe</b>.
+        <b></b>Ten en cuenta que los campos marcados con <span class="badge rounded-pill bg-warning text-dark"><b>*</b></span>
+        son obligatorios para poder crear el informe</b>.
     </div>
 
     <form method="POST">
@@ -54,7 +37,8 @@
                             {{render_field(form.title, id="title", class="form-control", placeholder="Escribe el título")}}
                         </div>
                         <div class="mb-3">
-                            <label for="author" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Autor/es: </label>
+                            <label for="author" class="form-label"><span
+                                    class="badge rounded-pill bg-warning text-dark">*</span> Autor/es: </label>
                             {{render_field(form.author, id="author", class="form-control", placeholder="Escribe el autor/autores")}}
                         </div>
                         <div class="mb-3">
@@ -62,7 +46,8 @@
                             {{render_field(form.sendTo, id="sendTo", class="form-control", placeholder="Escribe la organización o persona a la cual va dirigido el informe")}}
                         </div>
                         <div class="mb-3">
-                            <label for="reason" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
+                            <label for="reason" class="form-label"><span
+                                    class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
                             {{render_field(form.reason, id="reason", class="form-control", style="height: 290px; min-height: 190px; max-height: 240px;")}}
                         </div>
                     </div>

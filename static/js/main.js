@@ -6,7 +6,6 @@
         var title = document.title;
 
         var progressbar = $('#progressbar');
-        var one = $('#one');
         var two = $('#two');
         var three = $('#three')
 
@@ -54,16 +53,6 @@
 
                 three.removeClass('btn-secondary');
                 three.addClass('btn-primary');
-
-                var map = L.map('mapid').setView([5.567541725282831, -73.33807725929755], 17);
-
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-
-                L.marker([5.567541725282831, -73.33807725929755]).addTo(map)
-                    .bindPopup('Tooltip de Prueba')
-                    .openPopup()
 
                 break;
 

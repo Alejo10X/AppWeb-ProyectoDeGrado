@@ -62,16 +62,16 @@ def createReport(report_data, analysis):
     p.add_run(report_data['reason'] + '\n\n') if report_data['reason'] else p.add_run('Aquí va la descripción del por qué se genera el reporte\n\n')
 
     # Tabla
-    t = doc.add_table(analysis['B'].shape[0] + 1, analysis['B'].shape[1])
+    t = doc.add_table(analysis['C'].shape[0] + 1, analysis['C'].shape[1])
 
     # add the header rows.
-    for j in range(analysis['B'].shape[-1]):
-        t.cell(0, j).text = analysis['B'].columns[j]
+    for j in range(analysis['C'].shape[-1]):
+        t.cell(0, j).text = analysis['C'].columns[j]
 
     # add the rest of the data frame
-    for i in range(analysis['B'].shape[0]):
-        for j in range(analysis['B'].shape[-1]):
-            t.cell(i + 1, j).text = str(analysis['B'].values[i, j])
+    for i in range(analysis['C'].shape[0]):
+        for j in range(analysis['C'].shape[-1]):
+            t.cell(i + 1, j).text = str(analysis['C'].values[i, j])
 
     # Guardado del archivo en memoria
 

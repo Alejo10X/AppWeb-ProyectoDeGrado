@@ -3,7 +3,7 @@ import requests
 
 from functools import wraps
 
-from libs.functions import uploadDatetime, generateFileName
+from libs.functions import uploadDatetime, generateFileName, dataframeToList
 from libs.appforms import SignupForm, LoginForm, ChannelForm, ReportForm
 from libs.firebase import signUp, logIn, userDataStorage, getUserData, userFileStorage, userAddFileHistory, getFileURL
 from libs.data import dataAnalysis
@@ -138,11 +138,9 @@ def upload():
 
         if api_resp.ok:
 
-            ch_info = api_resp.json()
-            session['chInfo'] = ch_info
+            session['chInfo'] = api_resp.json()
 
-            filename = generateFileName(1, ch_info)
-
+            filename = generateFileName(1, session['chInfo'])
             file_resp = requests.get(api_url + '/feeds.csv')
 
             if file_resp.ok:
@@ -151,15 +149,15 @@ def upload():
 
                 userFileStorage(1, session['user']['key'], filename, f)
 
-                filedata = {
+                session['URL_A'] = getFileURL(1, session['user']['key'], filename)
+
+                session['filedata'] = {
                     'filename': filename,
                     'date': uploadDatetime(),
-                    'url': getFileURL(session['user']['key'], filename)
+                    'url': session['URL_A']
                 }
 
-                session['filedata'] = filedata
-
-                if userAddFileHistory(session['user']['key'], filedata):
+                if userAddFileHistory(1, session['user']['key'], session['filedata']):
                     return redirect(url_for('generator'))
 
                 else:
@@ -200,7 +198,7 @@ def generator():
             'descrip': form.descript.data
         }
 
-        file_resp = requests.get(session['filedata']['url'])
+        file_resp = requests.get(session['URL_A'])
 
         if file_resp.ok:
 
@@ -208,9 +206,34 @@ def generator():
             report = createReport(report_data, analysis)
 
             filename = generateFileName(2, session['chInfo'])
-
+            
             if userFileStorage(2, session['user']['key'], filename, report):
-                print('ok')
+
+                session['URL_B'] = getFileURL(2, session['user']['key'], filename)
+
+                session['filedata'] = {
+                    'filename': filename,
+                    'date': uploadDatetime(),
+                    'url': session['URL_B']
+                }
+
+                if userAddFileHistory(2, session['user']['key'], session['filedata']):
+
+                    session['dataReview'] = {
+                        'Dat': analysis['A'],
+                        'Rev': analysis['B'],
+                        'pH': dataframeToList(analysis['C']['pH']),
+                        'K': dataframeToList(analysis['C']['K']),
+                        'OD': dataframeToList(analysis['C']['OD']),
+                        'T': dataframeToList(analysis['C']['T'])
+                    }
+
+                    return redirect(url_for('review'))
+
+                else:
+                    flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo',
+                          'danger')
+                    return redirect(url_for('generator'))
 
         return redirect(url_for('review'))
 
@@ -225,6 +248,14 @@ def review():
     title = 'Resumen del Análisis' + brand
 
     return render_template('review.html', title=title)
+
+
+@app.route('/map')
+@is_logged_in
+def map():
+
+    return render_template('map.html')
+
 
 
 
@@ -256,6 +287,4 @@ def docs():
 
 
 if __name__ == "__main__":
-    import webbrowser
-    webbrowser.open("http://127.0.0.1:5000/")
     app.run(debug=True)
