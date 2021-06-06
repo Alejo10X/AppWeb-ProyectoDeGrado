@@ -71,10 +71,10 @@ def dataAnalysis(datafile):
         for val in df[col]:
 
             if col == 'pH':
-                values.append('✔') if val >= 5 and val <= 9 else values.append('X')
+                values.append('✔') if 5 <= val <= 9 else values.append('X')
 
             elif col == 'K':
-                values.append('✔') if val >= 0 and val <= 1000 else values.append('X')
+                values.append('✔') if 0 <= val <= 1000 else values.append('X')
 
             elif col == 'OD':
                 values.append('✔') if val >= 4 else values.append('X')
@@ -203,11 +203,11 @@ def dataAnalysis(datafile):
 
             <hr style="margin: 4px auto;">
 
-            <div style="display: grid; grid-template-columns: 55px 70px 20px; align-items: center;">
+            <div style="display: grid; grid-template-columns: 50px 105px 20px; align-items: center;">
                 <p style="margin: 6px 0;">▸ <b>pH:</b></p> <p style="margin: 6px 0;">&ensp;{}&ensp;</p>  <b>{}</b>
-                <p style="margin: 6px 0;">▸ <b>Cond:</b></p> <p style="margin: 6px 0;">&ensp;{}&ensp;</p>  <b>{}</b>
-                <p style="margin: 6px 0;">▸ <b>OD:</b></p> <p style="margin: 6px 0;">&ensp;{}&ensp;</p>  <b>{}</b>
-                <p style="margin: 6px 0;">▸ <b>Temp:</b></p> <p style="margin: 6px 0;">&ensp;{}&ensp;</p>  <b>{}</b>
+                <p style="margin: 6px 0;">▸ <b>Cond:</b></p> <p style="margin: 6px 0;">&ensp;{} µS/cm&ensp;</p>  <b>{}</b>
+                <p style="margin: 6px 0;">▸ <b>OD:</b></p> <p style="margin: 6px 0;">&ensp;{} mg/L&ensp;</p>  <b>{}</b>
+                <p style="margin: 6px 0;">▸ <b>Temp:</b></p> <p style="margin: 6px 0;">&ensp;{} ºC&ensp;</p>  <b>{}</b>
             </div>
 
             <hr style="margin: 4px auto;">

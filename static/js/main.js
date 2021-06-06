@@ -54,11 +54,109 @@
                 three.removeClass('btn-secondary');
                 three.addClass('btn-primary');
 
+                var ph = [
+                    $('#max-ph').text(),
+                    $('#min-ph').text(),
+                    $('#med-ph').text(),
+                    $('#mdna-ph').text(),
+                ]
+
+                var p_ph = [
+                    $('#p-max-ph'),
+                    $('#p-min-ph'),
+                    $('#p-med-ph'),
+                    $('#p-mdna-ph'),
+                ]
+
+                var i = 0;
+                for (let item of ph) {
+
+                    if (item >= 0 && item <= 6) {
+                        p_ph[i].text('Ácido');
+                        p_ph[i].addClass('bg-danger');
+
+                    } else if (item > 6 && item < 8) {
+                        p_ph[i].text('Neutro');
+                        p_ph[i].addClass('bg-success');
+
+                    } else if (item >= 8 && item <= 14) {
+                        p_ph[i].text('Alcalino');
+                        p_ph[i].addClass('bg-primary');
+                    }
+
+                    i++;
+
+                }
+
+                var od = [
+                    $('#max-od').text().split(' ')[1],
+                    $('#min-od').text().split(' ')[1],
+                    $('#med-od').text().split(' ')[1],
+                    $('#mdna-od').text().split(' ')[1],
+                ]
+
+                var p_od = [
+                    $('#p-max-od'),
+                    $('#p-min-od'),
+                    $('#p-med-od'),
+                    $('#p-mdna-od'),
+                ]
+
+                i = 0;
+                for (let item of od) {
+
+                    if (item >= 0 && item < 50) {
+                        p_od[i].text('Bajo');
+                        p_od[i].addClass('bg-info');
+
+                    } else if (item > 50 && item <= 100) {
+                        p_od[i].text('Alto');
+                        p_od[i].addClass('bg-primary');
+                    }
+
+                    i++;
+
+                }
+
+                var t = [
+                    $('#max-t').text().split(' ')[0],
+                    $('#min-t').text().split(' ')[0],
+                    $('#med-t').text().split(' ')[0],
+                    $('#mdna-t').text().split(' ')[0],
+                ]
+
+                var p_t = [
+                    $('#p-max-t'),
+                    $('#p-min-t'),
+                    $('#p-med-t'),
+                    $('#p-mdna-t'),
+                ]
+
+                i = 0;
+                for (let item of t) {
+
+                    if (item >= 0 && item < 15) {
+                        p_t[i].text('Bajo');
+                        p_t[i].addClass('bg-info');
+
+                    } else if (item > 15 && item <= 25) {
+                        p_t[i].text('Normal');
+                        p_t[i].addClass('bg-primary');
+                    } else if (item > 25 && item <= 100) {
+                        p_t[i].text('Alto');
+                        p_t[i].addClass('bg-warning text-dark');
+                    }
+
+                    i++;
+
+                }
+
+
+
+
                 break;
 
             case "Dashboard · RS Report":
-
-
 
                 break;
 

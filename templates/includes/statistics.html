@@ -10,29 +10,29 @@
                     </div>
                     <h5 class="card-title">Estadísticas de medición del pH</h5>
                 </div>
-                <ul class="list-group list-group-flush my-4">
+                <ul class="list-group list-group-flush my-4" id="data-ph-card">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Max:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.pH[0]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge bg-primary rounded-pill">Neutro</span>
+                            <p class="d-inline m-0" id="max-ph">{% if session.dataReview %} {{session.dataReview.pH[0]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge rounded-pill" id="p-max-ph">Neutro</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Min:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.pH[1]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge bg-primary rounded-pill">Neutro</span>
+                            <p class="d-inline m-0" id="min-ph">{% if session.dataReview %} {{session.dataReview.pH[1]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge rounded-pill" id="p-min-ph">Neutro</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Media:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.pH[2]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge bg-primary rounded-pill">Neutro</span>
+                            <p class="d-inline m-0" id="med-ph">{% if session.dataReview %} {{session.dataReview.pH[2]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge rounded-pill" id="p-med-ph">Neutro</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center">
                         Mediana:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.pH[3]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge bg-primary rounded-pill">Neutro</span>
+                            <p class="d-inline m-0" id="mdna-ph">{% if session.dataReview %} {{session.dataReview.pH[3]}} {% else %} 0.0 {% endif %} </p><span class="d-inline badge rounded-pill" id="p-mdna-ph">Neutro</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -56,7 +56,7 @@
                     </div>
                     <h5 class="card-title">Estadísticas de medición de la Conductividad</h5>
                 </div>
-                <ul class="list-group list-group-flush my-4">
+                <ul class="list-group list-group-flush my-4" id="data-k-card">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Max:
                         <div>
@@ -102,29 +102,29 @@
                     </div>
                     <h5 class="card-title">Estadísticas de medición del Oxígeno Disuelto</h5>
                 </div>
-                <ul class="list-group list-group-flush my-4">
+                <ul class="list-group list-group-flush my-4" id="data-od-card">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Max:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.OD[0]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="max-od">{% if session.dataReview %} {{session.dataReview.OD[0]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge rounded-pill" id="p-max-od">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Min:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.OD[1]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="min-od">{% if session.dataReview %} {{session.dataReview.OD[1]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge rounded-pill" id="p-min-od">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Media:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.OD[2]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="med-od">{% if session.dataReview %} {{session.dataReview.OD[2]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge rounded-pill" id="p-med-od">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center">
                         Mediana:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.OD[3]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="mdna-od">{% if session.dataReview %} {{session.dataReview.OD[3]}} {% else %} 0.0 {% endif %} mg/L </p><span class="d-inline badge rounded-pill" id="p-mdna-od">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -148,29 +148,29 @@
                     </div>
                     <h5 class="card-title">Estadísticas de medición de la Temperatura</h5>
                 </div>
-                <ul class="list-group list-group-flush my-4">
+                <ul class="list-group list-group-flush my-4" id="data-t-card">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Max:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.T[0]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="max-t">{% if session.dataReview %} {{session.dataReview.T[0]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge rounded-pill" id="p-max-t">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Min:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.T[1]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="min-t">{% if session.dataReview %} {{session.dataReview.T[1]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge rounded-pill" id="p-min-t">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Media:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.T[2]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="med-t">{% if session.dataReview %} {{session.dataReview.T[2]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge rounded-pill" id="p-med-t">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center">
                         Mediana:
                         <div>
-                            <p class="d-inline m-0">{% if session.dataReview %} {{session.dataReview.T[3]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge bg-primary rounded-pill">Normal</span>
+                            <p class="d-inline m-0" id="mdna-t">{% if session.dataReview %} {{session.dataReview.T[3]}} {% else %} 0.0 {% endif %} °C </p><span class="d-inline badge rounded-pill" id="p-mdna-t">Normal</span>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">

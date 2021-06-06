@@ -15,6 +15,7 @@ site.webmanifest
 .idea
 .vscode
 
+templates/map.html
 static/img/Channel ID.ai
 
 libs/__pycache__
