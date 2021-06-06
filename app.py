@@ -11,7 +11,6 @@ from libs.wordfile import createReport
 
 from flask import Flask, render_template, request, flash, url_for, redirect, session
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'anotherkey098765'
 
@@ -30,16 +29,12 @@ def is_logged_in(f):
     return wrap
 
 
-
-
 # ANCHOR Página de Inicio
 
 @app.route('/')
 def home():
     title = 'Inicio' + brand
     return render_template('home.html', title=title)
-
-
 
 
 # ANCHOR User Sign Up / Registro de Usuario
@@ -53,8 +48,8 @@ def signup():
     if request.method == 'POST' and form.validate():
 
         userData = {
-            'name': (form.userName.data).capitalize(),
-            'lastname': (form.userLastname.data).capitalize(),
+            'name': form.userName.data.capitalize(),
+            'lastname': form.userLastname.data.capitalize(),
             'email': form.emailSign.data,
             'password': form.passwordSign.data
         }
@@ -69,8 +64,6 @@ def signup():
             return redirect(url_for('signup'))
 
     return render_template('signup.html', title=title, form=form)
-
-
 
 
 # ANCHOR User Log In / Inicio de Sesión de Usuario
@@ -105,8 +98,6 @@ def login():
     return render_template('login.html', title=title, form=form)
 
 
-
-
 # ANCHOR User Log Out / Cierre de Sesión de Usuario
 
 @app.route('/logout')
@@ -114,7 +105,6 @@ def logout():
     session.clear()
     flash('Has Cerrado la Sesión', 'warning')
     return redirect(url_for('home'))
-
 
 
 # ANCHOR Carga de Archivos
@@ -161,19 +151,22 @@ def upload():
                     return redirect(url_for('generator'))
 
                 else:
-                    flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo', 'danger')
+                    flash('Ha ocurrido un error mientras se cargaba el archivo en la base de datos. Intenta de nuevo',
+                          'danger')
                     return redirect(url_for('upload'))
 
             else:
-                flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.', 'danger')
+                flash(
+                    'El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.',
+                    'danger')
                 return redirect(url_for('upload'))
 
         else:
-            flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.', 'danger')
+            flash('El número del Channel ID que escribiste no existe o es incorrecto. Prueba escribiendo otro número.',
+                  'danger')
             return redirect(url_for('upload'))
 
     return render_template('upload.html', title=title, form=form)
-
 
 
 # ANCHOR Generador de Reportes - Análisis de Calidad
@@ -188,7 +181,7 @@ def generator():
     if request.method == 'POST' and form.validate():
 
         report_data = {
-            'title':  form.title.data,
+            'title': form.title.data,
             'author': form.author.data,
             'sendTo': form.sendTo.data,
             'reason': form.reason.data,
@@ -206,7 +199,7 @@ def generator():
             report = createReport(report_data, analysis)
 
             filename = generateFileName(2, session['chInfo'])
-            
+
             if userFileStorage(2, session['user']['key'], filename, report):
 
                 session['URL_B'] = getFileURL(2, session['user']['key'], filename)
@@ -222,6 +215,8 @@ def generator():
                     session['dataReview'] = {
                         'Dat': analysis['A'],
                         'Rev': analysis['B'],
+                        'Res': dataframeToList(analysis['F']['% Cumplimiento Total']),
+                        'Loc': report_data['zoneName'],
                         'pH': dataframeToList(analysis['C']['pH']),
                         'K': dataframeToList(analysis['C']['K']),
                         'OD': dataframeToList(analysis['C']['OD']),
@@ -240,8 +235,6 @@ def generator():
     return render_template('generator.html', title=title, form=form)
 
 
-
-
 @app.route('/review')
 @is_logged_in
 def review():
@@ -253,11 +246,7 @@ def review():
 @app.route('/map')
 @is_logged_in
 def map():
-
     return render_template('map.html')
-
-
-
 
 
 @app.route('/dashboard')
@@ -267,14 +256,10 @@ def dashboard():
     return render_template('dashboard.html', title=title)
 
 
-
-
 @app.route('/about')
 def about():
     title = 'Nosotros' + brand
     return render_template('about.html', title=title)
-
-
 
 
 @app.route('/docs')
@@ -283,8 +268,5 @@ def docs():
     return render_template('docs.html', title=title)
 
 
-
-
-
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -65,11 +65,12 @@ def createReport(report_data, analysis):
 
     p.add_run('\n\n')
 
-    p.add_run('Dirigido a: ').bold = True
-    p.add_run(report_data['sendTo']) if report_data['sendTo'] else p.add_run(
-        'Aquí va la entidad o persona a quien se dirige el reporte')
+    if report_data['sendTo'] != '':
+        p.add_run('Dirigido a: ').bold = True
+        p.add_run(report_data['sendTo']) if report_data['sendTo'] else p.add_run(
+            'Aquí va la entidad o persona a quien se dirige el reporte')
 
-    p.add_run('\n\n')
+        p.add_run('\n\n')
 
     p.add_run('Razón del reporte:\n').bold = True
     p.add_run(report_data['reason']) if report_data['reason'] else p.add_run(

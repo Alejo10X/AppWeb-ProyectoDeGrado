@@ -4,9 +4,12 @@
     <div id="body" class="container my-5">
 
         <h2>Resumen del Análisis</h2>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis hic cupiditate cumque illum numquam
-            sed, delectus inventore harum error eius qui ab. Perspiciatis corporis repellat architecto provident impedit
-            neque?</p>
+        <p>Aquí se describen las características de las variables medidas y los datos estadísticos recolectados. También
+            podrás descargar tanto el archivo que contiene los registros de las mediciones, como el reporte en formato
+            Word con los resultados obtenidos del anáslisis preliminar de la calidad del agua.</p>
+
+        <p>Si deseas complementar la información del reporte, puedes tomar capturas de pantalla desde tu dispositivo y
+            pegar la imagen en el archivo.</p>
 
         {% include 'includes/progress.html' %}
 
@@ -29,19 +32,35 @@
 
         {% include 'includes/filedata.html' %}
 
-        <h3>Estadísticas</h3>
-        <hr class="mt-2 mb-4">
+        <h3>Resumen del análisis</h3>
+        <hr class="mt-2 mb-2">
 
-        {% include 'includes/statistics.html' %}
+        <div class="mb-5">
+            <p>{{session.dataReview.Dat}}, de las cuales {{session.dataReview.Rev}}</p>
+            <p>Hay que recordar que las sondas utilizadas son de marca AtlasScientific, cuyos rangos de medición son:</p>
+            <ul>
+                <li><b>pH (Lab):</b> desde 0.005 hasta 14.</li>
+                <li><b>Conductividad (Lab - K 1.0):</b> desde 5 µS/cm hasta 500000 µS/cm.</li>
+                <li><b>Oxígeno disuelto (Lab):</b> desde 0.1 mg/L hasta 100 mg/L.</li>
+                <li><b>Temperatura (PT-1000):</b> desde -200ºC hasta 850ºC.</li>
+            </ul>
+            <p>Se identificó que el {{session.dataReview.Res[0]}} % del agua de la fuente hídrica, monitoreada en la
+                ubicación {{session.dataReview.Loc}}, cumple con las resoluciones ambientales: Resolución 2115 de 2007 y
+                Objetivos de Calidad de Agua - Resolución 3560 de 2015; frente al {{session.dataReview.Res[1]}} % que
+                no lo hace.</p>
+        </div>
 
-        <h3 class="mt-4">Información Interactiva</h3>
-        <hr class="mt-2 mb-4">
+        <h3>Información Interactiva</h3>
+        <hr class="mt-2 mb-2">
 
-        <div class="row g-4">
+        <p class="mb-4 fs-5">Para que no tengas problemas con la visualización del contenido, te recomendamos primero hacer click en cada
+        una de las pestañas de gráfica seleccionada. Así el contenido de la página se organiza y permite que trabajes sin contratiempos.</p>
+
+        <div class="row g-4 mb-5">
 
             <!-- Gráfico de Thinkspeak -->
             <div class="col-lg-6">
-                <div class="card" style="min-height: 500px; height: 100%;">
+                <div class="card" style="min-height: 650px; height: 100%;">
                     <div class="card-header">
                         <h5>Gráfica Seleccionada:</h5>
                         <ul class="nav nav-tabs card-header-tabs" role="tablist">
@@ -95,10 +114,9 @@
                 </div>
             </div>
 
-
             <!-- Mapa del Recorrido -->
             <div class="col-lg-6">
-                <div class="card h-100" style="min-height: 500px;">
+                <div class="card h-100" style="min-height: 650px; height: 100%">
                     <h5 class="card-header">Mapa del Recorrido:</h5>
                     <div class="card-body p-0">
                         <iframe src="{{ url_for('map') }}" title="mapa" style="height: 100%; width: 100%;"></iframe>
@@ -108,9 +126,19 @@
 
         </div>
 
-        <!-- <form class="m-4" style="text-align: center;">
-            <input class="btn btn-outline-primary" type=button value="Imprimir" onClick="javascript:window.print()">
-        </form> -->
+        <h3>Estadísticas</h3>
+        <hr class="mt-2 mb-4">
+
+        {% include 'includes/statistics.html' %}
+
+        <div class="card my-5">
+            <div class="p-4 d-flex flex-column flex-md-row justify-content-around align-items-md-center" style="text-align: center;">
+                <a class="mb-3 mb-md-0 btn btn-danger" href="{{ url_for('home') }}" role=button>Regresar a Inicio <i class="bi bi-house"></i></a>
+                <a class="mb-3 mb-md-0 btn btn-primary" href="{{ url_for('upload') }}" role=button>Nuevo Reporte <i class="bi bi-file-earmark-plus"></i></a>
+                <a class="mb-3 mb-md-0 btn btn-dark" href="{{ url_for('generator') }}" role=button>Editar Reporte <i class="bi bi-pencil-square"></i></a>
+                <button class="btn btn-outline-success" type="button" onClick="javascript:window.print()">Imprimir esta página <i class="bi bi-printer"></i> </button>
+            </div>
+        </div>
 
     </div>
 </main>
