@@ -90,7 +90,7 @@ def userFileStorage(sel, userkey, filename, f):
             path = '{}/{}/{}'.format(sel_list[sel], userkey, filename)
             storage.child(path).put(f)
         else:
-            raise print('El valor de selección debe ser únicamente los valores 1 o 2')
+            raise print('Debe seleccionar únicamente los valores 1 o 2')
     except HTTPError:
         return False
 

@@ -13,17 +13,19 @@ def uploadDatetime():
     return datetimes
 
 
-def generateFileName(selector, data):
+def generateFileName(sel, data):
 
     txtname = data['name'].split(' - ')[1]
 
     if 'Default' in txtname:
         txtname = txtname.split(' ')[0]
 
-    if selector == 1:
+    if sel == 0:
         filename = 'DataFile_{}.csv'.format(txtname)
-    else:
+    elif sel == 1:
         filename = 'ReportFile_{}.docx'.format(txtname)
+    else:
+        raise print('Debe seleccionar únicamente los valores 1 o 2')
 
     return secure_filename(filename)
 
