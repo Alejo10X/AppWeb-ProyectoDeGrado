@@ -68,7 +68,7 @@ def dataAnalysis(datafile):
         for val in df[col]:
 
             if col == 'pH':
-                values.append('✔') if 5 <= val <= 9 else values.append('X')
+                values.append('✔') if 6.5 <= val <= 9 else values.append('X')
 
             elif col == 'K':
                 values.append('✔') if 0 <= val <= 1000 else values.append('X')
@@ -77,7 +77,7 @@ def dataAnalysis(datafile):
                 values.append('✔') if val >= 4 else values.append('X')
 
             elif col == 'T':
-                values.append('✔') if val >= 4 else values.append('X')
+                values.append('✔') if 5 <= val <= 30 else values.append('X')
 
             else:
                 values.append('*')
