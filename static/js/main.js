@@ -1,3 +1,19 @@
+
+function move() {
+    if ($('body').height() < $(window).height()) {
+        $('footer').css({'position': 'absolute', 'bottom': '0'});
+    }else{
+        $('footer').css({'position': '', 'bottom': ''});
+    }
+}
+
+
+/*$(window).resize(function(){
+    move();
+    console.log('Se mueve');
+});*/
+
+
 (function() {
     'use strict';
 
@@ -151,13 +167,10 @@
 
                 }
 
-
-
-
                 break;
 
-            case "Dashboard · RS Report":
-
+            case"Dashboard · RS Report":
+                move();
                 break;
 
             default:

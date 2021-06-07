@@ -21,22 +21,23 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if session.logged %}
-                    <li class="nav-item me-md-2">
-                        <a class="w-100 w-md-auto btn btn-outline-dark" href="{{ url_for('upload') }}" role="button">Generar Reportes</a>
-                    </li>
-                    <li class="nav-item me-md-2 mt-2 mt-md-0">
-                        <a class="w-100 w-md-auto btn btn-outline-dark" href="{{ url_for('dashboard') }}" role="button">Dashboard</a>
-                    </li>
-                    <li class="nav-item my-2 my-md-0">
-                        <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('logout') }}" role="button">Cerrar Sesión</a>
-                    </li>
+                        <li class="nav-item me-md-2 mt-2 mt-md-0">
+                            <a class="w-100 w-md-auto btn btn-outline-dark" href="{{ url_for('dashboard') }}" role="button">Dashboard</a>
+                        </li>
+                        <li class="nav-item me-md-2">
+                            <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('upload') }}" role="button">Generar Reportes</a>
+                        </li>
+                        <li class="nav-item my-2 my-md-0">
+                            <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('logout') }}" role="button"
+                               style="background-color: #00348e; border-color: #00348e">Cerrar Sesión</a>
+                        </li>
                     {% else %}
-                    <li class="nav-item me-md-2 mt-2 mt-md-0">
-                        <a class="w-100 w-md-auto btn btn-outline-primary" href="{{ url_for('signup') }}" role="button">Registrarme</a>
-                    </li>
-                    <li class="nav-item my-2 my-md-0">
-                        <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('login') }}" role="button">Iniciar Sesión</a>
-                    </li>
+                        <li class="nav-item me-md-2 mt-2 mt-md-0">
+                            <a class="w-100 w-md-auto btn btn-outline-primary" href="{{ url_for('signup') }}" role="button">Registrarme</a>
+                        </li>
+                        <li class="nav-item my-2 my-md-0">
+                            <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('login') }}" role="button">Iniciar Sesión</a>
+                        </li>
                     {% endif %}
                 </ul>
 

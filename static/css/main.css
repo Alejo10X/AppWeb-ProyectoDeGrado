@@ -95,6 +95,11 @@ textarea {
 
 /*  Author's custom styles  */
 
+#footer {
+    width: 100%;
+    background-color: #373737;
+}
+
 
 /** REGISTRO / INICIO DE SESIÓN **/
 

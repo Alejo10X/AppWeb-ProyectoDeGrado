@@ -3,8 +3,76 @@
     <div id="body" class="container my-5">
 
         <h1><b>Mis Archivos</b> - Mediciones y Reportes</h1>
-        <hr> {% include 'includes/userfileslist.html' %}
+        <hr class="mb-5">
 
+        <div class="card mb-5" style="max-width: 850px; margin-left: auto; margin-right: auto">
+            <h5 class="card-header">Archivos de Mediciones Cargados</h5>
+            <div class="card-body overflow-auto">
+
+                {% if up_files %}
+                    <table class="table" style="text-align: center; min-height: 200px">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Archivo</th>
+                                <th scope="col">Origen</th>
+                                <th scope="col">Fecha/Hora de Carga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in up_files %}
+                                <tr>
+                                    <th scope="row">{{loop.revindex}}</th>
+                                    <td>{{data.filename}}</td>
+                                    <td>{{data.date}}</td>
+                                    <td><a href="{{data.url}}"><i class="bi bi-download"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i> No existe ningún archivo de mediciones guardado en tu cuenta
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="card mb-5" style="max-width: 850px; margin-left: auto; margin-right: auto">
+            <h5 class="card-header">Archivos de Reporte Generados</h5>
+            <div class="card-body overflow-auto">
+
+                {% if gen_files %}
+                <table class="table" style="text-align: center; min-height: 200px">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Archivo</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Fecha/Hora de Carga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in gen_files %}
+                            <tr>
+                                <th scope="row">{{loop.revindex}}</th>
+                                <td>{{data.filename}}</td>
+                                <td>{{data.date}}</td>
+                                <td><a href="{{data.url}}"><i class="bi bi-download"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <p class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i> No existe ningún archivo de reporte guardado en tu cuenta
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
     </div>
+
 </main>
 {% endblock %}

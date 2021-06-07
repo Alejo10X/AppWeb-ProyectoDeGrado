@@ -3,11 +3,11 @@ import requests
 
 from functools import wraps
 
-from libs.functions import uploadDatetime, generateFileName, dataframeToList
-from libs.appforms import SignupForm, LoginForm, ChannelForm, ReportForm
-from libs.firebase import signUp, logIn, userDataStorage, getUserData, userFileStorage, userAddFileHistory, getFileURL
 from libs.data import dataAnalysis
 from libs.wordfile import createReport
+from libs.appforms import SignupForm, LoginForm, ChannelForm, ReportForm
+from libs.functions import uploadDatetime, generateFileName, dataframeToList
+from libs.firebase import signUp, logIn, userDataStorage, getUserData, userFileStorage, userAddFileHistory, getFileURL, getFilesHistory
 
 from flask import Flask, render_template, request, flash, url_for, redirect, session
 
@@ -130,16 +130,16 @@ def upload():
 
             session['chInfo'] = api_resp.json()
 
-            filename = generateFileName(1, session['chInfo'])
+            filename = generateFileName(0, session['chInfo'])
             file_resp = requests.get(api_url + '/feeds.csv')
 
             if file_resp.ok:
 
                 f = io.StringIO(file_resp.content.decode('utf-8'))
 
-                userFileStorage(1, session['user']['key'], filename, f)
+                userFileStorage(0, session['user']['key'], filename, f)
 
-                session['URL_A'] = getFileURL(1, session['user']['key'], filename)
+                session['URL_A'] = getFileURL(0, session['user']['key'], filename)
 
                 session['filedata'] = {
                     'filename': filename,
@@ -147,7 +147,7 @@ def upload():
                     'url': session['URL_A']
                 }
 
-                if userAddFileHistory(1, session['user']['key'], session['filedata']):
+                if userAddFileHistory(0, session['user']['key'], session['filedata']):
                     return redirect(url_for('generator'))
 
                 else:
@@ -198,11 +198,11 @@ def generator():
             analysis = dataAnalysis(io.StringIO(file_resp.content.decode('utf-8')))
             report = createReport(report_data, analysis)
 
-            filename = generateFileName(2, session['chInfo'])
+            filename = generateFileName(1, session['chInfo'])
 
-            if userFileStorage(2, session['user']['key'], filename, report):
+            if userFileStorage(1, session['user']['key'], filename, report):
 
-                session['URL_B'] = getFileURL(2, session['user']['key'], filename)
+                session['URL_B'] = getFileURL(1, session['user']['key'], filename)
 
                 session['filedata'] = {
                     'filename': filename,
@@ -210,7 +210,7 @@ def generator():
                     'url': session['URL_B']
                 }
 
-                if userAddFileHistory(2, session['user']['key'], session['filedata']):
+                if userAddFileHistory(1, session['user']['key'], session['filedata']):
 
                     session['dataReview'] = {
                         'Dat': analysis['A'],
@@ -253,7 +253,11 @@ def map():
 @is_logged_in
 def dashboard():
     title = 'Dashboard' + brand
-    return render_template('dashboard.html', title=title)
+
+    up_files = getFilesHistory(0, session['user']['key'])
+    gen_files = getFilesHistory(1, session['user']['key'])
+
+    return render_template('dashboard.html', title=title, up_files=up_files, gen_files=gen_files)
 
 
 @app.route('/about')
@@ -269,4 +273,4 @@ def docs():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

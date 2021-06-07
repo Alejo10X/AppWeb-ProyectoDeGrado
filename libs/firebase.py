@@ -1,6 +1,7 @@
 import time
 import calendar
 import pyrebase
+from requests import HTTPError
 from werkzeug.utils import secure_filename
 
 firebaseConfig = {
@@ -15,7 +16,7 @@ firebaseConfig = {
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 
-
+sel_list = ('UploadedFiles', 'GeneratedFiles')
 
 
 def signUp(email, password):
@@ -25,12 +26,10 @@ def signUp(email, password):
 
     try:
         auth.create_user_with_email_and_password(email, password)
-    except:
+    except HTTPError:
         return False
 
     return True
-
-
 
 
 def logIn(email, password):
@@ -40,28 +39,24 @@ def logIn(email, password):
 
     try:
         auth.sign_in_with_email_and_password(email, password)
-    except:
+    except HTTPError:
         return False
 
     return True
-
 
 
 def userDataStorage(data):
     """Crea un nuevo registro en la base de datos, almacenando los datos ingresados en el registro."""
 
     db = firebase.database()
-
-    user = secure_filename(data['name']+data['lastname'])+str(calendar.timegm(time.gmtime()))
+    user = secure_filename(data['name'] + data['lastname']) + str(calendar.timegm(time.gmtime()))
 
     try:
         db.child('users').child(user).set(data)
-    except:
-       return False
+    except HTTPError:
+        return False
 
     return True
-
-
 
 
 def getUserData(email):
@@ -85,52 +80,65 @@ def getUserData(email):
             return None
 
 
-
-
-def userFileStorage(selector, userkey, filename, f):
+def userFileStorage(sel, userkey, filename, f):
     """Almacenamiento de los archivos del usuario en Firebase"""
 
     storage = firebase.storage()
 
     try:
-        if selector == 1:
-            storage.child('uploadedFiles/' + userkey + '/' + filename).put(f)
-        elif selector == 2:
-            storage.child('generatedFiles/' + userkey + '/' + filename).put(f)
-    except:
+        if sel == 0 or sel == 1:
+            path = '{}/{}/{}'.format(sel_list[sel], userkey, filename)
+            storage.child(path).put(f)
+        else:
+            raise print('El valor de selección debe ser únicamente los valores 1 o 2')
+    except HTTPError:
         return False
 
     return True
 
 
-
-
-def getFileURL(selector, userkey, filename):
+def getFileURL(sel, userkey, filename):
     storage = firebase.storage()
 
     try:
-        if selector == 1:
-            url = storage.child('uploadedFiles/' + userkey + '/' + filename).get_url(None)
-        elif selector == 2:
-            url = storage.child('generatedFiles/' + userkey + '/' + filename).get_url(None)
-    except:
+        if sel == 0 or sel == 1:
+            path = '{}/{}/{}'.format(sel_list[sel], userkey, filename)
+            url = storage.child(path).get_url(None)
+        else:
+            raise print('El valor de selección debe ser únicamente los valores 1 o 2')
+    except HTTPError:
         return None
 
     return url
 
 
-
-
-def userAddFileHistory(selector, userkey, filedata):
-
+def userAddFileHistory(sel, userkey, filedata):
     db = firebase.database()
 
     try:
-        if selector == 1:
-            db.child('users').child(userkey).child('UploadedFiles').push(filedata)
-        elif selector == 2:
-            db.child('users').child(userkey).child('GeneratedFiles').push(filedata)
-    except:
+        if sel == 0 or sel == 1:
+            db.child('users').child(userkey).child(sel_list[sel]).push(filedata)
+        else:
+            raise print('El valor de selección debe ser únicamente los valores 1 o 2')
+    except HTTPError:
         return False
 
     return True
+
+
+def getFilesHistory(sel, userkey):
+    db = firebase.database()
+
+    if sel == 0 or sel == 1:
+        user_hist = db.child('users').child(userkey).child(sel_list[sel]).get()
+    else:
+        raise print('El valor de selección debe ser únicamente los valores 1 o 2')
+
+    files_list = []
+    if user_hist.val() is not None:
+        for data in user_hist.each():
+            files_list.append(data.val())
+
+        files_list.reverse()
+
+    return files_list

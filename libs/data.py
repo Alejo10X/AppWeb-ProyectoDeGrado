@@ -3,9 +3,9 @@ import pandas as pd
 import folium as fm
 import branca as br
 
-def dataAnalysis(datafile):
 
-    ''' Módulo que permite realizar el análisis de las mediciones de variables físicoquimicas de la calidad del agua '''
+def dataAnalysis(datafile):
+    """ Módulo que permite realizar el análisis de las mediciones de variables físicoquimicas de la calidad del agua """
 
     # ANCHOR - Inicio del Programa Principal
 
@@ -35,7 +35,8 @@ def dataAnalysis(datafile):
         analysis.update({'B': 'todas cumplen con los rangos de medición de cada una de las sondas implementadas en el sistema.'})
 
     else:
-        analysis.update({'B': 'se eliminaron {} que no cumplen con los rangos de medición de cada una de las sondas implementadas en el sistema.'.format(len_before - len_after)})
+        analysis.update({'B': 'se eliminaron {} que no cumplen con los rangos de medición de cada una de las sondas implementadas en el sistema.'.format(
+            len_before - len_after)})
 
     # ANCHOR - Análisis Estadístico
 
@@ -53,12 +54,8 @@ def dataAnalysis(datafile):
 
     quickTab = pd.DataFrame(data, index=['Max', 'Min', 'Med', 'Mdna', 'Desv.Est'])
 
-    try:
-        quickTab = quickTab.rename_axis(['Estadísticas']).reset_index()
-        quickTab['Estadísticas'] = np.where(quickTab['Estadísticas'].duplicated(), '', quickTab['Estadísticas'])
-
-    except:
-        None
+    quickTab = quickTab.rename_axis(['Estadísticas']).reset_index()
+    quickTab['Estadísticas'] = np.where(quickTab['Estadísticas'].duplicated(), '', quickTab['Estadísticas'])
 
     analysis.update({'C': quickTab})
 
@@ -116,15 +113,11 @@ def dataAnalysis(datafile):
 
         i = 0
         for col in range(tabCount.shape[1]):
-            tabCount.values[row, col] == tabCount.values[row, col] * 100 / len_after
+            tabCount.values[row, col] = tabCount.values[row, col] * 100 / len_after
             i += 1
 
-    try:
-        tabCount = tabCount.rename_axis(['Calificación']).reset_index()
-        tabCount['Calificación'] = np.where(tabCount['Calificación'].duplicated(), '', tabCount['Calificación'])
-
-    except:
-        None
+    tabCount = tabCount.rename_axis(['Calificación']).reset_index()
+    tabCount['Calificación'] = np.where(tabCount['Calificación'].duplicated(), '', tabCount['Calificación'])
 
     analysis.update({'E': tabCount})
 
@@ -133,12 +126,8 @@ def dataAnalysis(datafile):
     tabTotal = pd.DataFrame(tabVerif['Cumplimiento'].value_counts(normalize=True) * 100)
     tabTotal.columns = ['% Cumplimiento Total']
 
-    try:
-        tabTotal = tabTotal.rename_axis(['Calificación']).reset_index()
-        tabTotal['Calificación'] = np.where(tabTotal['Calificación'].duplicated(), '', tabTotal['Calificación'])
-
-    except:
-        None
+    tabTotal = tabTotal.rename_axis(['Calificación']).reset_index()
+    tabTotal['Calificación'] = np.where(tabTotal['Calificación'].duplicated(), '', tabTotal['Calificación'])
 
     analysis.update({'F': tabTotal})
 
@@ -229,6 +218,9 @@ def dataAnalysis(datafile):
             tabVerif['Cumplimiento'][i]
         )
 
+        colCirc = ''
+        colLine = ''
+
         if lat[0] != 0 and lng[0] != 0:
 
             if verif[i] == '✔':
@@ -240,22 +232,14 @@ def dataAnalysis(datafile):
                 colLine = 'Crimson'
 
             if i == 0:
-                fm.Marker((lat[0], lng[0]), icon=fm.Icon(color='black', icon='play', prefix='fa'),
-                          tooltip='Inicio').add_to(m)
+                fm.Marker((lat[0], lng[0]), icon=fm.Icon(color='black', icon='play', prefix='fa'), tooltip='Inicio').add_to(m)
+
+            elif i != 0:
+                fm.Circle((lat[i], lng[i]), radius=1, color=colCirc).add_to(m)
+                fm.PolyLine([[lat[i - 1], lng[i - 1]], [lat[i], lng[i]]], color=colLine, popup=popup).add_to(m)
 
             elif i == len_after - 1:
-
-                fm.Circle((lat[i], lng[i]), radius=1, color=colCirc).add_to(m)
-
-                fm.PolyLine([[lat[i - 1], lng[i - 1]], [lat[i], lng[i]]], color=colLine, popup=popup).add_to(m)
-
-                fm.Marker([lat[i], lng[i]], icon=fm.Icon(color='black', icon='stop', prefix='fa'),
-                          tooltip='Final').add_to(m)
-
-            else:
-                fm.Circle((lat[i], lng[i]), radius=1, color=colCirc).add_to(m)
-
-                fm.PolyLine([[lat[i - 1], lng[i - 1]], [lat[i], lng[i]]], color=colLine, popup=popup).add_to(m)
+                fm.Marker([lat[i], lng[i]], icon=fm.Icon(color='black', icon='stop', prefix='fa'), tooltip='Final').add_to(m)
 
     m.get_root().add_child(legend)
     m.save('templates/map.html')
