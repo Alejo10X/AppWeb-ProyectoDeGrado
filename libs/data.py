@@ -238,8 +238,8 @@ def dataAnalysis(datafile):
                 fm.Circle((lat[i], lng[i]), radius=1, color=colCirc).add_to(m)
                 fm.PolyLine([[lat[i - 1], lng[i - 1]], [lat[i], lng[i]]], color=colLine, popup=popup).add_to(m)
 
-            elif i == len_after - 1:
-                fm.Marker([lat[i], lng[i]], icon=fm.Icon(color='black', icon='stop', prefix='fa'), tooltip='Final').add_to(m)
+                if i == len_after - 1:
+                    fm.Marker([lat[i], lng[i]], icon=fm.Icon(color='black', icon='stop', prefix='fa'), tooltip='Final').add_to(m)
 
     m.get_root().add_child(legend)
     m.save('templates/map.html')
