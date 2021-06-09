@@ -166,7 +166,7 @@ def upload():
                   'danger')
             return redirect(url_for('upload'))
 
-    return render_template('upload.html', title=title, form=form)
+    return render_template('channel.html', title=title, form=form)
 
 
 # ANCHOR Generador de Reportes - Análisis de Calidad
@@ -232,7 +232,7 @@ def generator():
 
         return redirect(url_for('review'))
 
-    return render_template('generator.html', title=title, form=form)
+    return render_template('report.html', title=title, form=form)
 
 
 @app.route('/review')
@@ -240,7 +240,7 @@ def generator():
 def review():
     title = 'Resumen del Análisis' + brand
 
-    return render_template('review.html', title=title)
+    return render_template('data.html', title=title)
 
 
 @app.route('/map')
@@ -257,7 +257,7 @@ def dashboard():
     up_files = getFilesHistory(0, session['user']['key'])
     gen_files = getFilesHistory(1, session['user']['key'])
 
-    return render_template('dashboard.html', title=title, up_files=up_files, gen_files=gen_files)
+    return render_template('fileshist.html', title=title, up_files=up_files, gen_files=gen_files)
 
 
 @app.route('/about')

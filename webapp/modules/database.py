@@ -1,8 +1,5 @@
-import time
-import calendar
 import pyrebase
 from requests import HTTPError
-from werkzeug.utils import secure_filename
 
 firebaseConfig = {
     'apiKey': "AIzaSyCePI5JkqUiG0ILwG6A45f_xctb77lznk8",
@@ -19,38 +16,43 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 sel_list = ('UploadedFiles', 'GeneratedFiles')
 
 
-def signUp(email, password):
+def sign_up(email, password):
     """Creación de usuario en Firebase Auth"""
-
     auth = firebase.auth()
 
     try:
-        auth.create_user_with_email_and_password(email, password)
-    except HTTPError:
+        user = auth.create_user_with_email_and_password(email, password)
+        auth.send_email_verification(user['idToken'])
+
+    except HTTPError as e:
+        e = eval(e.__str__().split('] ')[1]).get('error').get('message')
+        print(e)
+        # TODO: validar el tipo de mensaje y retornarlo para generar una alerta específica
         return False
 
     return True
 
 
-def logIn(email, password):
+def log_in(email, password):
     """Inicio de sesión de usuario en Firebase Auth"""
-
     auth = firebase.auth()
 
     try:
         auth.sign_in_with_email_and_password(email, password)
-    except HTTPError:
+
+    except HTTPError as e:
+        e = eval(e.__str__().split('] ')[1]).get('error').get('message')
+        print(e)
+
         return False
 
     return True
 
 
-def userDataStorage(data):
+def user_data_storage(data, user):
     """Crea un nuevo registro en la base de datos, almacenando los datos ingresados en el registro."""
 
     db = firebase.database()
-    user = secure_filename(data['name'] + data['lastname']) + str(calendar.timegm(time.gmtime()))
-
     try:
         db.child('users').child(user).set(data)
     except HTTPError:
@@ -59,7 +61,7 @@ def userDataStorage(data):
     return True
 
 
-def getUserData(email):
+def get_user_data(email):
     """ Obtiene los datos del Usuario """
 
     db = firebase.database()
