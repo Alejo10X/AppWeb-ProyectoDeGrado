@@ -2,18 +2,22 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 # Useful .gitignore templates: https://github.com/github/gitignore
 
-*.pyv
-*.egg-info/
-__pycache__/
+desktop.ini
+Screenshots.lnk
 
-env/
-dist/
-build/
-instance/
+env
+doc
+dist
+files
+node_modules
+site.webmanifest
 
-.idea/
-.vscode/
-.coverage
-.pytest_cache/
+.idea
+.vscode
 
 templates/map.html
+static/img/Channel ID.ai
+
+libs/__pycache__
+__pycache__/app.cpython-38.pyc
+
