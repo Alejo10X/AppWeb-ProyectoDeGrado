@@ -1,6 +1,6 @@
 {% extends 'layouts/complete.html' %} {% block body %}
 
-<main id="body" class="container my-5">
+<main id="body" class="container my-5 my-lg-0">
 
     {% include 'includes/messages.html' %}
 
@@ -20,9 +20,9 @@
                 <p class="lead">Para ello:</p>
 
                 <div class="row align-items-center justify-content-center">
-                    <a class="btn btn-outline-primary col-12 col-md-3 m-2" href="{{ url_for('signup') }}" type="button">Regístrate Ahora</a>
+                    <a class="btn btn-outline-primary col-12 col-md-3 m-2" href="{{ url_for('auth.signup') }}" type="button">Regístrate Ahora</a>
                     <b class="col-12 col-md-3 m-2 text-center">... O bien ...</b>
-                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('login') }}" type="button">Inicia Sesión</a>
+                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('auth.login') }}" type="button">Inicia Sesión</a>
                 </div>
             </div>
             {% endif %}
@@ -36,15 +36,14 @@
 
     </section>
 
+    <h2 class="home-h2 mt-md-4 mt-lg-3">Las variables que se analizan</h2>
 
-    <section class="row row-cols-1 g-4">
-
-        <h2>Las variables que se analizan</h2>
+    <section class="flex-column flex-md-row row row-cols-1 g-5 gx-md-4">
 
         <div class="col-md-6 col-xl-3">
-            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
-                <img src="../static/img/ph.svg" class="card-img-top" alt="..." style="max-height: 75px;">
-                <div class="card-body">
+            <div class="card h-100 var-cards">
+                <img class="img-card img-circle rounded-circle" src="../static/img/ph.svg" alt="...">
+                <div class="home-card card-body">
                     <h5 class="card-title">pH</h5>
                     <p class="card-text">Es una medida que indica la acidez o la alcalinidad del agua.</p>
                     <p class="card-text"> Aunque no tiene unidades de medición, los valores pueden oscilar en una escala numérica del 0 al 14.</p>
@@ -53,9 +52,9 @@
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
-                <img src="../static/img/conductivity.svg" class="card-img-top" alt="..." style="max-height: 75px;">
-                <div class="card-body">
+            <div class="card h-100 var-cards">
+                <img class="img-card img-circle rounded-circle" src="../static/img/conductivity.svg"alt="...">
+                <div class="home-card card-body">
                     <h5 class="card-title">Conductividad Eléctrica</h5>
                     <p class="card-text">Es la capacidad del agua para conducir una corriente eléctrica. Esta variable proporciona información sobre la descomposición de la materia orgánica y diversos contaminates.</p>
                     <p class="card-text"> Sus unidades son los µS/cm.</p>
@@ -64,9 +63,9 @@
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
-                <img src="../static/img/oxygen.svg" class="card-img-top" alt="..." style="max-height: 75px;">
-                <div class="card-body">
+            <div class="card h-100 var-cards">
+                <img class="img-card img-circle rounded-circle" src="../static/img/oxygen.svg" alt="...">
+                <div class="home-card card-body">
                     <h5 class="card-title">Oxígeno Disuelto</h5>
                     <p class="card-text">Es la cantidad de oxígeno que se encuentra disuelta en el agua. Esta está determinada por la solubilidad del gas, la presión, la temperatura y la pureza del agua.</p>
                     <p class="card-text">Sus unidades son los mg/L.</p>
@@ -75,9 +74,9 @@
         </div>
 
         <div class="col-md-6 col-xl-3">
-            <div class="card h-100 p-2" style="border: none; background-color: #eeeeee;">
-                <img src="../static/img/temperature.svg" class="card-img-top" alt="..." style="max-height: 75px;">
-                <div class="card-body">
+            <div class="card h-100 var-cards">
+                <img class="img-card img-circle rounded-circle" src="../static/img/temperature.svg" alt="...">
+                <div class="home-card card-body">
                     <h5 class="card-title">Temperatura</h5>
                     <p class="card-text">Esta variable indica la cantidad de energía calórica que posee el cuerpo de agua. Aunque es una de las variables más comunes, es a su vez una de las más importantes de analizar.</p>
                     <p>Sus unidades son los °C.</p>
