@@ -32,7 +32,7 @@ def signup():
             flash('La cuenta ya existe con el correo que acabas de ingresar. Intenta nuevamente.', 'danger')
             return redirect(url_for('auth.signup'))
 
-    return render_template('main/auth/signup.html', title=title, form=form)
+    return render_template('web/auth/signup.html', title=title, form=form)
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -63,4 +63,12 @@ def login():
             flash('Error iniciando sesión, el correo o la contraseña no coinciden', 'danger')
             return redirect(url_for('auth.login'))
 
-    return render_template('main/auth/login.html', title=title, form=form)
+    return render_template('web/auth/login.html', title=title, form=form)
+
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    flash('Has Cerrado la Sesión', 'warning')
+
+    return redirect(url_for('home.home'))

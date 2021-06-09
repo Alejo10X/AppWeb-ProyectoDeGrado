@@ -1,6 +1,6 @@
 {% extends 'layouts/complete.html' %} {% block body %}
 
-<main id="body" class="container my-5 my-lg-0">
+<main class="container my-5">
 
     {% include 'includes/messages.html' %}
 
@@ -15,28 +15,33 @@
             <p class="lead">Este sitio es una aplicación web basada en Python, que te permitirá crear reportes preliminares sobre la calidad del agua gracias a los datos de medición obtenidos del sistema <b>Roboat Stingray</b>, alojados en el servidor de <b>Thinkspeak</b>.
             </p>
 
-            {% if not(session.user) %}
-            <div class="mt-3 mb-5 mx-2">
-                <p class="lead">Para ello:</p>
 
-                <div class="row align-items-center justify-content-center">
-                    <a class="btn btn-outline-primary col-12 col-md-3 m-2" href="{{ url_for('auth.signup') }}" type="button">Regístrate Ahora</a>
-                    <b class="col-12 col-md-3 m-2 text-center">... O bien ...</b>
-                    <a class="btn btn-primary col-12 col-md-3 m-2" href="{{ url_for('auth.login') }}" type="button">Inicia Sesión</a>
-                </div>
+            <div class="mt-4">
+                {% if not session.logged %}
+                    <p class="lead">Para ello:</p>
+
+                    <div class="row align-items-center justify-content-evenly">
+                        <a class="btn btn-outline-primary btn-lg col-12 col-md-3 m-2" href="{{ url_for('auth.signup') }}" type="button">Regístrate
+                            Ahora</a>
+                        <b class="col-12 col-md-3 m-2 text-center">... O bien ...</b>
+                        <a class="btn btn-primary btn-lg col-12 col-md-3 m-2" href="{{ url_for('auth.login') }}" type="button">Inicia Sesión</a>
+                    </div>
+                {% else %}
+                    <div class="row align-items-center justify-content-center">
+                        <a class="btn btn-outline-dark col-12 col-md-8 btn-lg m-2" href="{{ url_for('main.channel') }}" type="button">Generar Reportes</a>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
 
         </div>
 
         <div class="d-none d-lg-block col-lg-6">
-            <!-- <img src="../static/img/banner.svg" alt=""> -->
             <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_4ejZJA.json" background="transparent" speed="1" style="width: 100%; height: 470px;" autoplay></lottie-player>
         </div>
 
     </section>
 
-    <h2 class="home-h2 mt-md-4 mt-lg-3">Las variables que se analizan</h2>
+    <h2 class="home-h2">Las variables que se analizan</h2>
 
     <section class="flex-column flex-md-row row row-cols-1 g-5 gx-md-4">
 
@@ -86,7 +91,7 @@
 
     </section>
 
-    <section class="container my-5">
+    <section class="container mt-5">
         <h2>Lo que debes hacer</h2>
 
         <ul class="list-unstyled mt-4">

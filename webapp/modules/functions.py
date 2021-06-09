@@ -1,19 +1,14 @@
-import locale
-import pandas as pd
 from datetime import datetime
-
 from werkzeug.utils import secure_filename
 
-locale.setlocale(locale.LC_TIME, 'es_CO')
 
-
-def uploadDatetime():
-    datetimes = datetime.now().strftime('%x %X')
+def upload_datetime():
+    datetimes = datetime.now().strftime('%c')
 
     return datetimes
 
 
-def generateFileName(sel, data):
+def gen_file_name(sel, data):
 
     txtname = data['name'].split(' - ')[1]
 
@@ -28,7 +23,3 @@ def generateFileName(sel, data):
         raise print('Debe seleccionar únicamente los valores 1 o 2')
 
     return secure_filename(filename)
-
-
-def dataframeToList(df):
-    return df.tolist()

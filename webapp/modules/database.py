@@ -50,9 +50,9 @@ def log_in(email, password):
 
 
 def user_data_storage(data, user):
-    """Crea un nuevo registro en la base de datos, almacenando los datos ingresados en el registro."""
-
+    """Crea un nuevo registro en la base de datos, almacenando los datos del nuevo usuario."""
     db = firebase.database()
+
     try:
         db.child('users').child(user).set(data)
     except HTTPError:
@@ -62,8 +62,7 @@ def user_data_storage(data, user):
 
 
 def get_user_data(email):
-    """ Obtiene los datos del Usuario """
-
+    """ Obtiene los datos del usuario alojados en en la base de datos"""
     db = firebase.database()
     users = db.child('users').order_by_child('email').equal_to(email).get()
 
@@ -82,9 +81,8 @@ def get_user_data(email):
             return None
 
 
-def userFileStorage(sel, userkey, filename, f):
-    """Almacenamiento de los archivos del usuario en Firebase"""
-
+def files_storage(sel, userkey, filename, f):
+    """Almacena los archivos del usuario, o los generados en el sistema dentro de Firebase"""
     storage = firebase.storage()
 
     try:
@@ -99,7 +97,9 @@ def userFileStorage(sel, userkey, filename, f):
     return True
 
 
-def getFileURL(sel, userkey, filename):
+def get_files_url(sel, userkey, filename):
+    """Obtiene la dirección URL de un archivo alojado en la base de datos de Firebase,
+    para luego permitir la descarga al usuario"""
     storage = firebase.storage()
 
     try:
@@ -114,7 +114,10 @@ def getFileURL(sel, userkey, filename):
     return url
 
 
-def userAddFileHistory(sel, userkey, filedata):
+def add_files_hist(sel, userkey, filedata):
+    """Crea un nuevo registro dentro de la base de datos, almacenando los datos del archivo
+    cargado por el usuario o generado por el sistema. Los datos a almacenar son: nombre del archivo,
+    fecha/hora de creación y URL de Firebase"""
     db = firebase.database()
 
     try:
@@ -128,7 +131,9 @@ def userAddFileHistory(sel, userkey, filedata):
     return True
 
 
-def getFilesHistory(sel, userkey):
+def get_files_hist(sel, userkey):
+    """Obtiene el historial de registros de los archivos cargados y generados, asociados a la
+    cuenta de un usuario específico"""
     db = firebase.database()
 
     if sel == 0 or sel == 1:

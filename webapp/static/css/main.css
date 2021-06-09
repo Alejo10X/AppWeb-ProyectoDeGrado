@@ -111,12 +111,12 @@ textarea {
 }
 
 .home-h2 {
-    margin: 30px auto 80px auto;
+    margin: 50px auto 80px auto;
 }
 
 @media (min-width: 992px) {
     .home-h2 {
-        margin: auto auto 80px auto;
+        margin: 65px auto 80px auto;
     }
 }
 

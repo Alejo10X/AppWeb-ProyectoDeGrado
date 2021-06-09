@@ -16,4 +16,4 @@ instance/
 .coverage
 .pytest_cache/
 
-templates/map.html
+webapp/templates/web/main/map.html

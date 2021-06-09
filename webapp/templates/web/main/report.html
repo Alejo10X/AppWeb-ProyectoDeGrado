@@ -1,0 +1,102 @@
+{% extends 'layouts/complete.html' %} {% block body %}
+    {% from 'includes/formhelpers.html' import render_field %}
+
+    <main id="body" class="container my-5">
+
+        <h2>Creación del Reporte</h2>
+        <p>Llena el formulario para completar el informe de la calidad del agua, con los datos obtenidos de tu archivo.</p>
+
+        {% include 'includes/progress.html' %} {% include 'includes/messages.html' %}
+
+        <h3 class="my-3">Información del Archivo de Mediciones</h3>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span>Las mediciones de la base de datos seleccionada se han cargado correctamente.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        {% include 'includes/filedata.html' %}
+
+        <h3 class="mb-3">Información del Reporte a Generar</h3>
+
+        <div class="alert alert-primary">
+            <p class="m-0">Ten en cuenta que los campos marcados con <span class="badge rounded-pill bg-warning text-dark"><b>*</b></span>
+            son obligatorios para poder crear el informe.</p>
+        </div>
+
+        <form method="POST">
+
+            <div class="row row-cols-1 g-4">
+
+                <div class="col-lg-5">
+                    <div class="card h-100">
+                        <h5 class="card-header">Datos Básicos</h5>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="title" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Título del Informe:
+                                </label>
+                                {{ render_field(form.title, id="title", class="form-control", placeholder="Escribe el título") }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label"><span
+                                        class="badge rounded-pill bg-warning text-dark">*</span> Autor/es: </label>
+                                {{ render_field(form.author, id="author", class="form-control", placeholder="Escribe el autor/autores") }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="sendTo" class="form-label">Dirigido a: </label>
+                                {{ render_field(form.sendTo, id="sendTo", class="form-control", placeholder="Escribe la organización o persona a la cual
+                                 va dirigido el informe") }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="reason" class="form-label"><span
+                                        class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
+                                {{ render_field(form.reason, id="reason", class="form-control", style="height: 290px; min-height: 190px; max-height: 240px;") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card h-100">
+                        <h5 class="card-header">Datos del Sitio o Fuente Hídrica</h5>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="sourceType" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Tipo de
+                                        Fuente:</label>
+                                    {{ render_field(form.sourceType, class="form-select") }}
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="sourceName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre de la
+                                        Fuente Hídrica:</label>
+                                    {{ render_field(form.sourceName, id="sourceName", class="form-control", placeholder="Escribe el nombre de la fuente hídrica") }}
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="zoneName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre/Ubicación de
+                                    la Zona de Estudio:</label>
+                                {{ render_field(form.zoneName, id="zoneName", class="form-control", placeholder="Escribe el nombre o ubicación del lugar donde se realizaron las mediciones") }}
+                            </div>
+                            <div class="mb-4">
+                                <label for="descript" class="form-label"> Descripción del lugar: </label>
+                                {{ render_field(form.descript, id="descript", class="form-control", style="height: 310px; min-height: 210px; max-height: 420px;") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Crear Reporte</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+{% endblock %}

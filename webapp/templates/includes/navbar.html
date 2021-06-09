@@ -25,14 +25,14 @@
                             <a class="w-100 w-md-auto btn btn-outline-light" href="{#{ url_for('dashboard') }#}" role="button">Dashboard</a>
                         </li>
                         <li class="nav-item mx-md-2">
-                            <a class="w-100 w-md-auto btn btn-light" href="{#{ url_for('upload') }#}" role="button">Generar Reportes</a>
+                            <a class="w-100 w-md-auto btn btn-light" href="{{ url_for('main.channel') }}" role="button">Generar Reportes</a>
                         </li>
                         <li class="nav-item my-2 my-md-0">
-                            <a class="w-100 w-md-auto btn btn-primary" href="{#{ url_for('logout') }#}" role="button">Cerrar Sesión</a>
+                            <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('auth.logout') }}" role="button">Cerrar Sesión</a>
                         </li>
                     {% else %}
                         <li class="nav-item me-md-2 mt-2 mt-md-0">
-                            <a class="w-100 w-md-auto btn btn-outline-primary" href="{{ url_for('auth.signup') }}" role="button">Registrarme</a>
+                            <a class="w-100 w-md-auto btn btn-outline-light" href="{{ url_for('auth.signup') }}" role="button">Registrarme</a>
                         </li>
                         <li class="nav-item my-2 my-md-0">
                             <a class="w-100 w-md-auto btn btn-primary" href="{{ url_for('auth.login') }}" role="button">Iniciar Sesión</a>

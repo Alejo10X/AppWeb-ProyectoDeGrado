@@ -4,8 +4,8 @@ import folium as fm
 import branca as br
 
 
-def dataAnalysis(datafile):
-    """ Módulo que permite realizar el análisis de las mediciones de variables físicoquimicas de la calidad del agua """
+def data_analysis(datafile):
+    """ Módulo que permite realizar el análisis de las mediciones de variables fisicoquímicas de la calidad del agua """
 
     # ANCHOR - Inicio del Programa Principal
 
@@ -242,6 +242,6 @@ def dataAnalysis(datafile):
                     fm.Marker([lat[i], lng[i]], icon=fm.Icon(color='black', icon='stop', prefix='fa'), tooltip='Final').add_to(m)
 
     m.get_root().add_child(legend)
-    m.save('templates/map.html')
+    m.save('webapp/templates/web/main/map.html')
 
     return analysis
