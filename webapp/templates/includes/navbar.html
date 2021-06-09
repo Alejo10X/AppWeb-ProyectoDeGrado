@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ms-auto">
                     {% if session.logged %}
                         <li class="nav-item my-2 my-md-0">
-                            <a class="w-100 w-md-auto btn btn-outline-light" href="{#{ url_for('dashboard') }#}" role="button">Dashboard</a>
+                            <a class="w-100 w-md-auto btn btn-outline-light" href="{{ url_for('main.dashboard') }}" role="button">Dashboard</a>
                         </li>
                         <li class="nav-item mx-md-2">
                             <a class="w-100 w-md-auto btn btn-light" href="{{ url_for('main.channel') }}" role="button">Generar Reportes</a>

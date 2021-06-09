@@ -98,7 +98,7 @@ class ReportForm(Form):
         validators.DataRequired('Este campo es requerido'),
         check_choice
     ], choices=[
-        ('', 'Seleccione una Opción'),
+        ('', 'Selecciona una Opción'),
         ('Arrollo', 'Arrollo'), ('Canal', 'Canal'), ('Charco', 'Charco'), ('Ciénaga', 'Ciénaga'), ('Embalse', 'Embalse'),
         ('Estanque', 'Estanque'), ('Estero', 'Estero'), ('Humedal', 'Humedal'), ('Lago', 'Lago'), ('Laguna', 'Laguna'),
         ('Marisma', 'Marisma'), ('Pantano', 'Pantano'), ('Quebrada', 'Quebrada'), ('Riachuelo', 'Riachuelo'), ('Río', 'Río')

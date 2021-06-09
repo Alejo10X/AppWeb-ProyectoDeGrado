@@ -44,12 +44,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="sendTo" class="form-label">Dirigido a: </label>
-                                {{ render_field(form.sendTo, id="sendTo", class="form-control", placeholder="Escribe la organización o persona a la cual
-                                 va dirigido el informe") }}
+                                {{ render_field(form.sendTo, id="sendTo", class="form-control", placeholder="Escribe a quién va dirigido el informe") }}
                             </div>
                             <div class="mb-3">
-                                <label for="reason" class="form-label"><span
-                                        class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
+                                <label for="reason" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Razón del Informe: </label>
                                 {{ render_field(form.reason, id="reason", class="form-control", style="height: 290px; min-height: 190px; max-height: 240px;") }}
                             </div>
                         </div>
@@ -73,8 +71,7 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label for="zoneName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre/Ubicación de
-                                    la Zona de Estudio:</label>
+                                <label for="zoneName" class="form-label"><span class="badge rounded-pill bg-warning text-dark">*</span> Nombre/Ubicación de la Zona de Estudio:</label>
                                 {{ render_field(form.zoneName, id="zoneName", class="form-control", placeholder="Escribe el nombre o ubicación del lugar donde se realizaron las mediciones") }}
                             </div>
                             <div class="mb-4">
