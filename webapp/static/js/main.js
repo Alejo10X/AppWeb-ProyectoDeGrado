@@ -105,10 +105,10 @@ function move() {
                 }
 
                 var od = [
-                    $('#max-od').text().split(' ')[1],
-                    $('#min-od').text().split(' ')[1],
-                    $('#med-od').text().split(' ')[1],
-                    $('#mdna-od').text().split(' ')[1],
+                    $('#max-od').text().split(' ')[0],
+                    $('#min-od').text().split(' ')[0],
+                    $('#med-od').text().split(' ')[0],
+                    $('#mdna-od').text().split(' ')[0],
                 ]
 
                 var p_od = [
@@ -121,11 +121,16 @@ function move() {
                 i = 0;
                 for (let item of od) {
 
-                    if (item >= 0 && item < 50) {
+                    if (item >= 0 && item <= 33.333) {
                         p_od[i].text('Bajo');
-                        p_od[i].addClass('bg-info');
+                        p_od[i].addClass('bg-warning text-dark');
 
-                    } else if (item > 50 && item <= 100) {
+                    } else if (item > 33.333 && item < 66.666) {
+                        p_od[i].text('Aceptable');
+                        p_od[i].addClass('bg-info text-dark');
+                    }
+
+                    else if (item >= 66.666 && item <= 100) {
                         p_od[i].text('Alto');
                         p_od[i].addClass('bg-primary');
                     }
@@ -151,14 +156,14 @@ function move() {
                 i = 0;
                 for (let item of t) {
 
-                    if (item >= 0 && item < 15) {
+                    if (item >= 0 && item <= 15) {
                         p_t[i].text('Bajo');
-                        p_t[i].addClass('bg-info');
+                        p_t[i].addClass('bg-info  text-dark');
 
-                    } else if (item > 15 && item <= 25) {
+                    } else if (item > 15 && item < 25) {
                         p_t[i].text('Normal');
                         p_t[i].addClass('bg-primary');
-                    } else if (item > 25 && item <= 100) {
+                    } else if (item >= 25 && item <= 100) {
                         p_t[i].text('Alto');
                         p_t[i].addClass('bg-warning text-dark');
                     }
