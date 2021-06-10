@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 
 
 def upload_datetime():
-    datetimes = datetime.now().strftime('%x %X')
+    datetimes = datetime.now().strftime('%x %I:%M:%S %p')
 
     return datetimes
 
